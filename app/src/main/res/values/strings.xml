@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Solaris</string>
     <string name="title_activity_about">Acerca de</string>
+    <string name="title_activity_energy">Energía Eléctrica</string>
+    <string name="title_activity_solar">Energía Solar</string>
+    <string name="title_activity_welding">Soldadura</string>
+    <string name="title_activity_cables">Cables Eléctricos</string>
     <string name="menu_about">Acerca de</string>
     <string name="about_description">Solaris v1.0\n\nUna aplicación moderna con Material You.\n\nDesarrollado con ❤️.</string>
 </resources>

@@ -5,9 +5,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +34,8 @@ import com.google.android.gms.ads.AdError;
 public class MainActivity extends AppCompatActivity {
 
     private InterstitialAd mInterstitialAd;
+    private static final String CHANNEL_ID = "solaris_notifications";
+    private static final int NOTIFICATION_PERMISSION_CODE = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +68,64 @@ public class MainActivity extends AppCompatActivity {
         // Load Interstitial Ad
         loadInterstitialAd();
 
-        // Setup WebView
-        WebView webView = findViewById(R.id.webview);
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("file:///android_asset/index.html");
+        // Create Notification Channel
+        createNotificationChannel();
+
+        // Check/Request Notification Permissions
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_CODE);
+            } else {
+                sendWelcomeNotification();
+            }
+        } else {
+            sendWelcomeNotification();
+        }
+
+        // Setup Button Listeners
+        findViewById(R.id.btnEnergy).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EnergyActivity.class)));
+        findViewById(R.id.btnSolar).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SolarActivity.class)));
+        findViewById(R.id.btnWelding).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, WeldingActivity.class)));
+        findViewById(R.id.btnCables).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CablesActivity.class)));
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Solaris Channel";
+            String description = "Canal para notificaciones de Solaris";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+
+    private void sendWelcomeNotification() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("¡Bienvenido a Solaris!")
+                .setContentText("Calculadora de electricidad, solar y soldadura.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(1, builder.build());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == NOTIFICATION_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                sendWelcomeNotification();
+            }
+        }
     }
 
     private void loadInterstitialAd() {
