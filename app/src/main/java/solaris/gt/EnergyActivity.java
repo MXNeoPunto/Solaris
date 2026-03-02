@@ -35,27 +35,118 @@ public class EnergyActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        EditText etVoltage = findViewById(R.id.etVoltage);
-        EditText etCurrent = findViewById(R.id.etCurrent);
-        Button btnCalculateEnergy = findViewById(R.id.btnCalculateEnergy);
-        TextView tvEnergyResult = findViewById(R.id.tvEnergyResult);
+        setupTool1Ohm();
+        setupTool2Power();
+        setupTool3Drop();
+        setupTool4Cable();
+        setupTool5Capacitor();
+        setupTool6Cost();
+    }
 
-        btnCalculateEnergy.setOnClickListener(v -> {
-            String voltageStr = etVoltage.getText().toString();
-            String currentStr = etCurrent.getText().toString();
-
-            if (voltageStr.isEmpty() || currentStr.isEmpty()) {
-                Toast.makeText(this, "Por favor ingrese voltaje y corriente", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
+    private void setupTool1Ohm() {
+        EditText etVolts = findViewById(R.id.etOhmVoltage);
+        EditText etAmps = findViewById(R.id.etOhmCurrent);
+        TextView tvResult = findViewById(R.id.tvOhmResult);
+        findViewById(R.id.btnCalcOhm).setOnClickListener(v -> {
             try {
-                double voltage = Double.parseDouble(voltageStr);
-                double current = Double.parseDouble(currentStr);
-                double power = voltage * current;
-                tvEnergyResult.setText(String.format("Potencia (W): %.2f Watts", power));
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Valores inválidos", Toast.LENGTH_SHORT).show();
+                double volts = Double.parseDouble(etVolts.getText().toString());
+                double amps = Double.parseDouble(etAmps.getText().toString());
+                tvResult.setText(String.format("Resistencia: %.2f Ω", (volts / amps)));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
+
+    private void setupTool2Power() {
+        EditText etVolts = findViewById(R.id.etPowerVoltage);
+        EditText etAmps = findViewById(R.id.etPowerCurrent);
+        TextView tvResult = findViewById(R.id.tvPowerResult);
+        findViewById(R.id.btnCalcPower).setOnClickListener(v -> {
+            try {
+                double volts = Double.parseDouble(etVolts.getText().toString());
+                double amps = Double.parseDouble(etAmps.getText().toString());
+                tvResult.setText(String.format("Potencia: %.2f W", (volts * amps)));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
+
+    private void setupTool3Drop() {
+        EditText etLen = findViewById(R.id.etDropLength);
+        EditText etAmps = findViewById(R.id.etDropCurrent);
+        EditText etArea = findViewById(R.id.etDropArea);
+        TextView tvResult = findViewById(R.id.tvDropResult);
+        findViewById(R.id.btnCalcDrop).setOnClickListener(v -> {
+            try {
+                double len = Double.parseDouble(etLen.getText().toString());
+                double amps = Double.parseDouble(etAmps.getText().toString());
+                double area = Double.parseDouble(etArea.getText().toString());
+                // Rho for copper is ~0.0172 ohm mm2 / m
+                double drop = (2 * len * 0.0172 * amps) / area;
+                tvResult.setText(String.format("Caída: %.2f V", drop));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
+
+    private void setupTool4Cable() {
+        EditText etAmps = findViewById(R.id.etCableCurrent);
+        TextView tvResult = findViewById(R.id.tvCableResult);
+        findViewById(R.id.btnCalcCable).setOnClickListener(v -> {
+            try {
+                double amps = Double.parseDouble(etAmps.getText().toString());
+                String awg = "";
+                if (amps <= 15) awg = "AWG 14";
+                else if (amps <= 20) awg = "AWG 12";
+                else if (amps <= 30) awg = "AWG 10";
+                else if (amps <= 40) awg = "AWG 8";
+                else if (amps <= 55) awg = "AWG 6";
+                else if (amps <= 70) awg = "AWG 4";
+                else if (amps <= 95) awg = "AWG 2";
+                else awg = "Mayor a AWG 2 / Cable especial";
+                tvResult.setText("Calibre sugerido: " + awg);
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
+
+    private void setupTool5Capacitor() {
+        EditText etCap = findViewById(R.id.etCapCapacitance);
+        EditText etVolts = findViewById(R.id.etCapVoltage);
+        TextView tvResult = findViewById(R.id.tvCapResult);
+        findViewById(R.id.btnCalcCap).setOnClickListener(v -> {
+            try {
+                double capMicro = Double.parseDouble(etCap.getText().toString());
+                double volts = Double.parseDouble(etVolts.getText().toString());
+                double capFarad = capMicro / 1000000.0;
+                double energy = 0.5 * capFarad * volts * volts;
+                tvResult.setText(String.format("Energía: %.4f J", energy));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
+
+    private void setupTool6Cost() {
+        EditText etPower = findViewById(R.id.etCostPower);
+        EditText etTime = findViewById(R.id.etCostTime);
+        EditText etRate = findViewById(R.id.etCostRate);
+        TextView tvResult = findViewById(R.id.tvCostResult);
+        findViewById(R.id.btnCalcCost).setOnClickListener(v -> {
+            try {
+                double powerW = Double.parseDouble(etPower.getText().toString());
+                double hours = Double.parseDouble(etTime.getText().toString());
+                double rate = Double.parseDouble(etRate.getText().toString());
+
+                double kwhPerDay = (powerW / 1000.0) * hours;
+                double costPerMonth = kwhPerDay * 30 * rate;
+                tvResult.setText(String.format("Costo aprox 30 días: $%.2f", costPerMonth));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
             }
         });
     }

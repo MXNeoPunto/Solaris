@@ -1,7 +1,17 @@
 package solaris.gt;
 
 import android.content.Intent;
+import android.view.View;
+import android.widget.Toast;
+
 import android.os.Bundle;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import android.widget.RadioGroup;
+import android.widget.RadioButton;
+import android.content.SharedPreferences;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +44,8 @@ import com.google.android.gms.ads.AdError;
 public class MainActivity extends AppCompatActivity {
 
     private InterstitialAd mInterstitialAd;
+    private BillingHelper billingHelper;
+    private boolean isAdsRemoved = false;
     private static final String CHANNEL_ID = "solaris_notifications";
     private static final int NOTIFICATION_PERMISSION_CODE = 1001;
 
@@ -46,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Set up the toolbar
-        MaterialToolbar toolbar = findViewById(R.id.topAppBar);
-        setSupportActionBar(toolbar);
 
         // Handle edge-to-edge insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_coordinator), (v, windowInsets) -> {
@@ -57,7 +66,26 @@ public class MainActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
+        findViewById(R.id.btnOptions).setOnClickListener(v -> showOptionsDialog());
+
+
+
+        // Initialize Billing Helper
+        billingHelper = new BillingHelper(this, isPurchased -> {
+            isAdsRemoved = isPurchased;
+            runOnUiThread(() -> {
+                if (isAdsRemoved) {
+                    AdView adView = findViewById(R.id.adView);
+                    if (adView != null) {
+                        adView.setVisibility(View.GONE);
+                    }
+                }
+            });
+        });
+        billingHelper.startConnection();
+
         // Initialize Mobile Ads SDK
+
         MobileAds.initialize(this, initializationStatus -> {});
 
         // Load Banner Ad
@@ -65,8 +93,12 @@ public class MainActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-        // Load Interstitial Ad
-        loadInterstitialAd();
+
+        // Load Interstitial Ad if not removed
+        if (!isAdsRemoved) {
+            loadInterstitialAd();
+        }
+
 
         // Create Notification Channel
         createNotificationChannel();
@@ -147,43 +179,94 @@ public class MainActivity extends AppCompatActivity {
             });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
+
+
+
+    private void showOptionsDialog() {
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(R.layout.bottom_sheet_options);
+
+        SharedPreferences prefs = getSharedPreferences("ThemePrefs", MODE_PRIVATE);
+        int themeMode = prefs.getInt("theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        RadioGroup rgTheme = dialog.findViewById(R.id.rgTheme);
+        RadioButton rbThemeLight = dialog.findViewById(R.id.rbThemeLight);
+        RadioButton rbThemeDark = dialog.findViewById(R.id.rbThemeDark);
+        RadioButton rbThemeSystem = dialog.findViewById(R.id.rbThemeSystem);
+
+        if (rgTheme != null) {
+            if (themeMode == AppCompatDelegate.MODE_NIGHT_NO && rbThemeLight != null) {
+                rbThemeLight.setChecked(true);
+            } else if (themeMode == AppCompatDelegate.MODE_NIGHT_YES && rbThemeDark != null) {
+                rbThemeDark.setChecked(true);
+            } else if (rbThemeSystem != null) {
+                rbThemeSystem.setChecked(true);
+            }
+
+            rgTheme.setOnCheckedChangeListener((group, checkedId) -> {
+                int mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+                if (checkedId == R.id.rbThemeLight) {
+                    mode = AppCompatDelegate.MODE_NIGHT_NO;
+                } else if (checkedId == R.id.rbThemeDark) {
+                    mode = AppCompatDelegate.MODE_NIGHT_YES;
+                }
+
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("theme", mode);
+                editor.apply();
+
+                AppCompatDelegate.setDefaultNightMode(mode);
+                dialog.dismiss();
+            });
+        }
+
+        View btnRemoveAds = dialog.findViewById(R.id.btnRemoveAds);
+        if (btnRemoveAds != null) {
+            if (isAdsRemoved) {
+                btnRemoveAds.setVisibility(View.GONE);
+            } else {
+                btnRemoveAds.setOnClickListener(v -> {
+                    dialog.dismiss();
+                    if (billingHelper != null) {
+                        billingHelper.initiatePurchaseFlow();
+                    }
+                });
+            }
+        }
+
+        View btnAbout = dialog.findViewById(R.id.btnAbout);
+        if (btnAbout != null) {
+            btnAbout.setOnClickListener(v -> {
+                dialog.dismiss();
+                if (mInterstitialAd != null && !isAdsRemoved) {
+                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            mInterstitialAd = null;
+                            loadInterstitialAd();
+                            startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                        }
+                        @Override
+                        public void onAdFailedToShowFullScreenContent(AdError adError) {
+                            mInterstitialAd = null;
+                            startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                        }
+                    });
+                    mInterstitialAd.show(MainActivity.this);
+                } else {
+                    startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                }
+            });
+        }
+
+        dialog.show();
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_about) {
-            if (mInterstitialAd != null) {
-                mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-                    @Override
-                    public void onAdDismissedFullScreenContent() {
-                        // Called when ad is dismissed.
-                        mInterstitialAd = null;
-                        loadInterstitialAd(); // Reload for next time
-                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                    }
-
-                    @Override
-                    public void onAdFailedToShowFullScreenContent(AdError adError) {
-                        // Called when ad fails to show.
-                        mInterstitialAd = null;
-                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                    }
-
-                    @Override
-                    public void onAdShowedFullScreenContent() {
-                        // Called when ad is shown.
-                    }
-                });
-                mInterstitialAd.show(this);
-            } else {
-                startActivity(new Intent(this, AboutActivity.class));
-            }
-            return true;
+    protected void onDestroy() {
+        super.onDestroy();
+        if (billingHelper != null) {
+            billingHelper.endConnection();
         }
-        return super.onOptionsItemSelected(item);
     }
 }

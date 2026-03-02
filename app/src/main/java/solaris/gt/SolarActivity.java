@@ -35,44 +35,95 @@ public class SolarActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        EditText etDailyConsumption = findViewById(R.id.etDailyConsumption);
-        EditText etPanelWattage = findViewById(R.id.etPanelWattage);
-        EditText etSunHours = findViewById(R.id.etSunHours);
-        Button btnCalculateSolar = findViewById(R.id.btnCalculateSolar);
-        TextView tvSolarResult = findViewById(R.id.tvSolarResult);
+        setupTool1Panels();
+        setupTool2Batteries();
+        setupTool3Inverter();
+        setupTool5ROI();
+        setupTool6Tilt();
+    }
 
-        btnCalculateSolar.setOnClickListener(v -> {
-            String dailyConsumptionStr = etDailyConsumption.getText().toString();
-            String panelWattageStr = etPanelWattage.getText().toString();
-            String sunHoursStr = etSunHours.getText().toString();
-
-            if (dailyConsumptionStr.isEmpty() || panelWattageStr.isEmpty() || sunHoursStr.isEmpty()) {
-                Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
+    private void setupTool1Panels() {
+        EditText etCons = findViewById(R.id.etSolarCons);
+        EditText etPanelW = findViewById(R.id.etSolarPanelW);
+        EditText etHSP = findViewById(R.id.etSolarHSP);
+        TextView tvResult = findViewById(R.id.tvPanelsResult);
+        findViewById(R.id.btnCalcPanels).setOnClickListener(v -> {
             try {
-                double consumptionKwh = Double.parseDouble(dailyConsumptionStr);
-                double panelWattage = Double.parseDouble(panelWattageStr);
-                double sunHours = Double.parseDouble(sunHoursStr);
+                double cons = Double.parseDouble(etCons.getText().toString());
+                double panelW = Double.parseDouble(etPanelW.getText().toString());
+                double hsp = Double.parseDouble(etHSP.getText().toString());
+                double wDay = cons * 1000;
+                // Efficiency factor ~0.8
+                double dailyGenPerPanel = panelW * hsp * 0.8;
+                double panels = Math.ceil(wDay / dailyGenPerPanel);
+                tvResult.setText(String.format("Paneles necesarios: %.0f", panels));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
 
-                // Consumption in Wh per day
-                double consumptionWh = consumptionKwh * 1000;
+    private void setupTool2Batteries() {
+        EditText etCons = findViewById(R.id.etBatCons);
+        EditText etDays = findViewById(R.id.etBatDays);
+        EditText etVolts = findViewById(R.id.etBatVolts);
+        TextView tvResult = findViewById(R.id.tvBatResult);
+        findViewById(R.id.btnCalcBat).setOnClickListener(v -> {
+            try {
+                double cons = Double.parseDouble(etCons.getText().toString());
+                double days = Double.parseDouble(etDays.getText().toString());
+                double volts = Double.parseDouble(etVolts.getText().toString());
+                // Profundidad de descarga 50%
+                double capAh = (cons * days) / (volts * 0.5);
+                tvResult.setText(String.format("Capacidad necesaria: %.0f Ah", capAh));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
 
-                // Account for system losses (typical efficiency is ~80%)
-                double requiredDailyProductionWh = consumptionWh / 0.8;
+    private void setupTool3Inverter() {
+        EditText etLoad = findViewById(R.id.etInvLoad);
+        TextView tvResult = findViewById(R.id.tvInvResult);
+        findViewById(R.id.btnCalcInv).setOnClickListener(v -> {
+            try {
+                double load = Double.parseDouble(etLoad.getText().toString());
+                // Inverter size + 25% safety margin
+                double invSize = load * 1.25;
+                tvResult.setText(String.format("Tamaño sugerido: %.0f W", invSize));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
 
-                // How much one panel produces per day
-                double panelDailyProductionWh = panelWattage * sunHours;
+    private void setupTool5ROI() {
+        EditText etCost = findViewById(R.id.etRoiCost);
+        EditText etSav = findViewById(R.id.etRoiSav);
+        TextView tvResult = findViewById(R.id.tvRoiResult);
+        findViewById(R.id.btnCalcRoi).setOnClickListener(v -> {
+            try {
+                double cost = Double.parseDouble(etCost.getText().toString());
+                double sav = Double.parseDouble(etSav.getText().toString());
+                double savYear = sav * 12;
+                double roi = cost / savYear;
+                tvResult.setText(String.format("Retorno en: %.1f Años", roi));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
 
-                // Panels needed
-                double panelsNeeded = requiredDailyProductionWh / panelDailyProductionWh;
-
-                int roundedPanels = (int) Math.ceil(panelsNeeded);
-
-                tvSolarResult.setText(String.format("Paneles estimados: %d", roundedPanels));
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Valores inválidos", Toast.LENGTH_SHORT).show();
+    private void setupTool6Tilt() {
+        EditText etLat = findViewById(R.id.etTiltLat);
+        TextView tvResult = findViewById(R.id.tvTiltResult);
+        findViewById(R.id.btnCalcTilt).setOnClickListener(v -> {
+            try {
+                double lat = Double.parseDouble(etLat.getText().toString());
+                // Simple rule of thumb: Tilt roughly equals latitude for annual perf
+                tvResult.setText(String.format("Ángulo sugerido: %.0f° (apunte al ecuador)", Math.abs(lat)));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
             }
         });
     }

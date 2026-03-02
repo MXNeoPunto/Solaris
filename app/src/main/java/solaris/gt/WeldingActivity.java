@@ -35,41 +35,80 @@ public class WeldingActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        EditText etMetalThickness = findViewById(R.id.etMetalThickness);
-        Button btnCalculateWelding = findViewById(R.id.btnCalculateWelding);
-        TextView tvWeldingResult = findViewById(R.id.tvWeldingResult);
+        setupTool1Amperage();
+        setupTool3DutyCycle();
+        setupTool4GasFlow();
+        setupTool5HeatInput();
+    }
 
-        btnCalculateWelding.setOnClickListener(v -> {
-            String thicknessStr = etMetalThickness.getText().toString();
-
-            if (thicknessStr.isEmpty()) {
-                Toast.makeText(this, "Por favor ingrese el grosor", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
+    private void setupTool1Amperage() {
+        EditText etThick = findViewById(R.id.etWeldThick);
+        TextView tvResult = findViewById(R.id.tvWeldAmpResult);
+        findViewById(R.id.btnCalcWeldAmp).setOnClickListener(v -> {
             try {
-                double thickness = Double.parseDouble(thicknessStr);
+                double thick = Double.parseDouble(etThick.getText().toString());
+                // Regla general: 40 amperios por cada mm (1 amperio por cada 0.001 pulg)
+                double minAmp = thick * 35;
+                double maxAmp = thick * 45;
+                tvResult.setText(String.format("Sugerido: %.0f - %.0f A", minAmp, maxAmp));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
 
-                String recommendation = "";
+    private void setupTool3DutyCycle() {
+        EditText etNomA = findViewById(R.id.etDutyNomAmp);
+        EditText etNomPct = findViewById(R.id.etDutyNomPct);
+        EditText etDesA = findViewById(R.id.etDutyDesAmp);
+        TextView tvResult = findViewById(R.id.tvDutyResult);
+        findViewById(R.id.btnCalcDuty).setOnClickListener(v -> {
+            try {
+                double nomA = Double.parseDouble(etNomA.getText().toString());
+                double nomPct = Double.parseDouble(etNomPct.getText().toString()) / 100.0;
+                double desA = Double.parseDouble(etDesA.getText().toString());
+                // Formula: Desired Duty Cycle = (Rated Amps^2 / Desired Amps^2) * Rated Duty Cycle
+                double desPct = ((nomA * nomA) / (desA * desA)) * nomPct;
+                if(desPct > 1.0) desPct = 1.0;
+                tvResult.setText(String.format("Ciclo estimado: %.1f%%", desPct * 100));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
 
-                if (thickness < 1.0) {
-                    recommendation = "Grosor muy delgado. Se recomienda soldadura TIG o MIG. Amperaje: 20-40A. Electrodo: 1/16\"";
-                } else if (thickness <= 2.0) {
-                    recommendation = "Amperaje recomendado: 40-70A.\nElectrodo: E6013 de 3/32\"";
-                } else if (thickness <= 3.0) {
-                    recommendation = "Amperaje recomendado: 70-90A.\nElectrodo: E6013 de 1/8\"";
-                } else if (thickness <= 5.0) {
-                    recommendation = "Amperaje recomendado: 90-120A.\nElectrodo: E6013 o E7018 de 1/8\"";
-                } else if (thickness <= 8.0) {
-                    recommendation = "Amperaje recomendado: 120-150A.\nElectrodo: E7018 de 5/32\"";
-                } else {
-                    recommendation = "Amperaje recomendado: 150A o más.\nElectrodo: E7018 de 5/32\" o 3/16\". Considere pasadas múltiples.";
-                }
+    private void setupTool4GasFlow() {
+        EditText etCup = findViewById(R.id.etGasCup);
+        TextView tvResult = findViewById(R.id.tvGasResult);
+        findViewById(R.id.btnCalcGas).setOnClickListener(v -> {
+            try {
+                double cup = Double.parseDouble(etCup.getText().toString());
+                // Regla empirica: Flujo (L/min) ~ Diametro copa (mm)
+                double minF = cup * 0.8;
+                double maxF = cup * 1.2;
+                tvResult.setText(String.format("Sugerido: %.1f - %.1f L/min", minF, maxF));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
+            }
+        });
+    }
 
-                tvWeldingResult.setText(recommendation);
-
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Valor inválido", Toast.LENGTH_SHORT).show();
+    private void setupTool5HeatInput() {
+        EditText etV = findViewById(R.id.etHeatV);
+        EditText etA = findViewById(R.id.etHeatA);
+        EditText etSpeed = findViewById(R.id.etHeatSpeed);
+        TextView tvResult = findViewById(R.id.tvHeatResult);
+        findViewById(R.id.btnCalcHeat).setOnClickListener(v -> {
+            try {
+                double vlt = Double.parseDouble(etV.getText().toString());
+                double amp = Double.parseDouble(etA.getText().toString());
+                double speed = Double.parseDouble(etSpeed.getText().toString());
+                // HI = (V * A * 60) / (Speed * 1000) -> kJ/mm
+                // simplified for per mm directly using Joules
+                double hi = (vlt * amp * 60) / (speed * 1000);
+                tvResult.setText(String.format("Entrada Calor: %.2f kJ/mm", hi));
+            } catch (Exception e) {
+                tvResult.setText("Valores inválidos");
             }
         });
     }
