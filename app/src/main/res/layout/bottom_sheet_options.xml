@@ -52,7 +52,7 @@
         android:id="@+id/btnRemoveAds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Eliminar Anuncios ($1.99)"
+        android:text="Eliminar Anuncios (Permanente $1.99)"
         android:layout_marginBottom="16dp"
         app:icon="@android:drawable/ic_menu_close_clear_cancel"
         style="@style/Widget.Material3.Button.TonalButton" />
