@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Opciones"
+        android:text="@string/options_title"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginBottom="24dp"/>
@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Apariencia"
+        android:text="@string/options_appearance"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginBottom="8dp"/>
@@ -33,26 +33,67 @@
             android:id="@+id/rbThemeLight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Modo Claro"/>
+            android:text="@string/options_theme_light"/>
 
         <RadioButton
             android:id="@+id/rbThemeDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Modo Oscuro"/>
+            android:text="@string/options_theme_dark"/>
 
         <RadioButton
             android:id="@+id/rbThemeSystem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Defecto del Sistema"/>
+            android:text="@string/options_theme_system"/>
+    </RadioGroup>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/options_language"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <RadioGroup
+        android:id="@+id/rgLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp">
+
+        <RadioButton
+            android:id="@+id/rbLangSystem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/options_theme_system"/>
+
+        <RadioButton
+            android:id="@+id/rbLangEs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/options_lang_es"/>
+
+        <RadioButton
+            android:id="@+id/rbLangEn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/options_lang_en"/>
+
+        <RadioButton
+            android:id="@+id/rbLangPt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/options_lang_pt"/>
     </RadioGroup>
 
     <com.google.android.material.button.MaterialButton
+
         android:id="@+id/btnRemoveAds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Eliminar Anuncios (Permanente $1.99)"
+        android:text="@string/options_remove_ads"
         android:layout_marginBottom="16dp"
         app:icon="@android:drawable/ic_menu_close_clear_cancel"
         style="@style/Widget.Material3.Button.TonalButton" />
@@ -61,7 +102,7 @@
         android:id="@+id/btnRateApp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Calificar App"
+        android:text="@string/options_rate_app"
         android:layout_marginBottom="16dp"
         app:icon="@drawable/ic_star"
         style="@style/Widget.Material3.Button.TextButton" />

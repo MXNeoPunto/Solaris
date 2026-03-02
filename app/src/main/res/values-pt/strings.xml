@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Solaris</string>
+    <string name="title_activity_about">Sobre</string>
+    <string name="title_activity_energy">Energia Elétrica</string>
+    <string name="title_activity_solar">Energia Solar</string>
+    <string name="title_activity_welding">Soldagem</string>
+    <string name="title_activity_cables">Cabos Elétricos</string>
+    <string name="title_activity_tariff">Tarifas de Eletricidade</string>
+    <string name="menu_about">Sobre</string>
+    <string name="about_description">Solaris v1.0\n\nUm aplicativo moderno com Material You.\n\nDesenvolvido com ❤️.</string>
+
+    <!-- MainActivity -->
+    <string name="main_tools_header">Ferramentas</string>
+
+    <!-- Options Dialog -->
+    <string name="options_title">Opções</string>
+    <string name="options_appearance">Aparência</string>
+    <string name="options_theme_light">Modo Claro</string>
+    <string name="options_theme_dark">Modo Escuro</string>
+    <string name="options_theme_system">Padrão do Sistema</string>
+    <string name="options_language">Idioma</string>
+    <string name="options_lang_es">Español</string>
+    <string name="options_lang_en">English</string>
+    <string name="options_lang_pt">Português</string>
+    <string name="options_remove_ads">Remover Anúncios (Permanente $1.99)</string>
+    <string name="options_rate_app">Avaliar App</string>
+
+    <!-- Rate Dialog -->
+    <string name="rate_title">Avaliar Solaris</string>
+    <string name="rate_message">Você gosta do aplicativo? Por favor, reserve um momento para avaliá-lo na Play Store.</string>
+    <string name="rate_positive">Aceitar</string>
+    <string name="rate_neutral">Mais tarde</string>
+    <string name="rate_negative">Não mostrar</string>
+
+    <!-- Secret Trick -->
+    <string name="secret_trick_activated">Truque Secreto! 10 min sem anúncios</string>
+    <string name="secret_trick_limit">O truque secreto só pode ser usado uma vez por dia</string>
+</resources>

@@ -68,7 +68,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Herramientas"
+                    android:text="@string/main_tools_header"
                     android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="16dp"
@@ -248,7 +248,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tarifas Eléctricas"
+                            android:text="@string/title_activity_tariff"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:layout_marginStart="16dp"/>

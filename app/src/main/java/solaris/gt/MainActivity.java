@@ -1,6 +1,8 @@
 package solaris.gt;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +14,9 @@ import android.widget.RadioGroup;
 import android.widget.RadioButton;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
+import java.util.Locale;
+
 
 import android.util.Log;
 import android.view.Menu;
@@ -40,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     private BillingHelper billingHelper;
     private boolean isAdsRemoved = false;
+    private int interstitialClickCount = 0;
+    private MediaPlayer clickMediaPlayer;
 
     private int headerClickCount = 0;
     private long lastHeaderClickTime = 0;
@@ -61,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        findViewById(R.id.btnOptions).setOnClickListener(v -> showOptionsDialog());
+        findViewById(R.id.btnOptions).setOnClickListener(v -> { playClickSound(); showOptionsDialog(); });
 
 
 
@@ -95,13 +102,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupSecretTrick();
+        clickMediaPlayer = MediaPlayer.create(this, R.raw.click_sound);
 
-        // Setup Button Listeners
-        findViewById(R.id.btnEnergy).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EnergyActivity.class)));
-        findViewById(R.id.btnSolar).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SolarActivity.class)));
-        findViewById(R.id.btnWelding).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, WeldingActivity.class)));
-        findViewById(R.id.btnCables).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CablesActivity.class)));
-        findViewById(R.id.btnTariff).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TariffActivity.class)));
+// Setup Button Listeners
+        findViewById(R.id.btnEnergy).setOnClickListener(v -> { playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, EnergyActivity.class)); });
+        findViewById(R.id.btnSolar).setOnClickListener(v -> { playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, SolarActivity.class)); });
+        findViewById(R.id.btnWelding).setOnClickListener(v -> { playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, WeldingActivity.class)); });
+        findViewById(R.id.btnCables).setOnClickListener(v -> { playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, CablesActivity.class)); });
+        findViewById(R.id.btnTariff).setOnClickListener(v -> { playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, TariffActivity.class)); });
     }
 
     private void setupSecretTrick() {
@@ -135,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
                 .putLong("expiration", currentTime + 600000) // 10 minutes
                 .apply();
 
-            Toast.makeText(this, "¡Truco Secreto! 10 min sin anuncios", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.secret_trick_activated), Toast.LENGTH_LONG).show();
             checkAndApplySecretTrick();
         } else {
-            Toast.makeText(this, "El truco secreto solo se puede usar 1 vez al día", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.secret_trick_limit), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -164,6 +172,47 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         checkAndApplySecretTrick();
+    }
+
+
+
+    private void playClickSound() {
+        if (clickMediaPlayer != null) {
+            if (clickMediaPlayer.isPlaying()) {
+                clickMediaPlayer.seekTo(0);
+            }
+            clickMediaPlayer.start();
+        }
+    }
+
+    private void showInterstitialWithIntent(Intent intent) {
+        if (isAdsRemoved) {
+            startActivity(intent);
+            return;
+        }
+
+        interstitialClickCount++;
+
+        if (interstitialClickCount >= 3 && mInterstitialAd != null) {
+            mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    mInterstitialAd = null;
+                    interstitialClickCount = 0; // Reset counter
+                    loadInterstitialAd(); // Preload next ad
+                    startActivity(intent);
+                }
+                @Override
+                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                    mInterstitialAd = null;
+                    interstitialClickCount = 0;
+                    startActivity(intent);
+                }
+            });
+            mInterstitialAd.show(MainActivity.this);
+        } else {
+            startActivity(intent);
+        }
     }
 
     private void loadInterstitialAd() {
@@ -226,7 +275,48 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+
+        // Language configuration
+        RadioGroup rgLanguage = dialog.findViewById(R.id.rgLanguage);
+        RadioButton rbLangSystem = dialog.findViewById(R.id.rbLangSystem);
+        RadioButton rbLangEs = dialog.findViewById(R.id.rbLangEs);
+        RadioButton rbLangEn = dialog.findViewById(R.id.rbLangEn);
+        RadioButton rbLangPt = dialog.findViewById(R.id.rbLangPt);
+
+        if (rgLanguage != null) {
+            LocaleListCompat currentLocaleList = AppCompatDelegate.getApplicationLocales();
+            if (currentLocaleList.isEmpty()) {
+                if (rbLangSystem != null) rbLangSystem.setChecked(true);
+            } else {
+                String lang = currentLocaleList.get(0).getLanguage();
+                if (lang.equals("es") && rbLangEs != null) {
+                    rbLangEs.setChecked(true);
+                } else if (lang.equals("en") && rbLangEn != null) {
+                    rbLangEn.setChecked(true);
+                } else if (lang.equals("pt") && rbLangPt != null) {
+                    rbLangPt.setChecked(true);
+                } else {
+                    if (rbLangSystem != null) rbLangSystem.setChecked(true);
+                }
+            }
+
+            rgLanguage.setOnCheckedChangeListener((group, checkedId) -> {
+                LocaleListCompat locales = LocaleListCompat.getEmptyLocaleList();
+                if (checkedId == R.id.rbLangEs) {
+                    locales = LocaleListCompat.forLanguageTags("es");
+                } else if (checkedId == R.id.rbLangEn) {
+                    locales = LocaleListCompat.forLanguageTags("en");
+                } else if (checkedId == R.id.rbLangPt) {
+                    locales = LocaleListCompat.forLanguageTags("pt");
+                }
+
+                AppCompatDelegate.setApplicationLocales(locales);
+                dialog.dismiss();
+            });
+        }
+
         View btnRemoveAds = dialog.findViewById(R.id.btnRemoveAds);
+
         if (btnRemoveAds != null) {
             if (isAdsRemoved) {
                 btnRemoveAds.setVisibility(View.GONE);
@@ -258,24 +348,7 @@ public class MainActivity extends AppCompatActivity {
         if (btnAbout != null) {
             btnAbout.setOnClickListener(v -> {
                 dialog.dismiss();
-                if (mInterstitialAd != null && !isAdsRemoved) {
-                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-                        @Override
-                        public void onAdDismissedFullScreenContent() {
-                            mInterstitialAd = null;
-                            loadInterstitialAd();
-                            startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                        }
-                        @Override
-                        public void onAdFailedToShowFullScreenContent(AdError adError) {
-                            mInterstitialAd = null;
-                            startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                        }
-                    });
-                    mInterstitialAd.show(MainActivity.this);
-                } else {
-                    startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                }
+                playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, AboutActivity.class));
             });
         }
 
@@ -285,9 +358,9 @@ public class MainActivity extends AppCompatActivity {
     private void showRateDialog() {
         SharedPreferences ratePrefs = getSharedPreferences("RatePrefs", MODE_PRIVATE);
         new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("Calificar Solaris")
-                .setMessage("¿Te gusta la aplicación? Por favor tómate un momento para calificarla en la Play Store.")
-                .setPositiveButton("Aceptar", (dialogInterface, i) -> {
+                .setTitle(getString(R.string.rate_title))
+                .setMessage(getString(R.string.rate_message))
+                .setPositiveButton(getString(R.string.rate_positive), (dialogInterface, i) -> {
                     ratePrefs.edit().putBoolean("dont_show_again", true).apply();
                     try {
                         startActivity(new Intent(Intent.ACTION_VIEW, android.net.Uri.parse("market://details?id=" + getPackageName())));
@@ -295,8 +368,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
                     }
                 })
-                .setNeutralButton("Más tarde", null)
-                .setNegativeButton("No mostrar", (dialogInterface, i) -> {
+                .setNeutralButton(getString(R.string.rate_neutral), null)
+                .setNegativeButton(getString(R.string.rate_negative), (dialogInterface, i) -> {
                     ratePrefs.edit().putBoolean("dont_show_again", true).apply();
                 })
                 .show();
@@ -307,6 +380,10 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         if (billingHelper != null) {
             billingHelper.endConnection();
+        }
+        if (clickMediaPlayer != null) {
+            clickMediaPlayer.release();
+            clickMediaPlayer = null;
         }
     }
 }
