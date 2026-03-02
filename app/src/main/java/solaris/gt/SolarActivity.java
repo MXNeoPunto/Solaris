@@ -12,9 +12,59 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.view.Menu;
+import android.view.MenuItem;
+import android.content.Intent;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class SolarActivity extends AppCompatActivity {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem aboutItem = menu.findItem(R.id.action_about);
+        if (aboutItem != null) {
+            aboutItem.setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_share) {
+            shareResults();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void shareResults() {
+        StringBuilder results = new StringBuilder();
+        results.append("Resultados Calculadora Solar:\n");
+
+        TextView tvPanels = findViewById(R.id.tvPanelsResult);
+        if (tvPanels != null && !tvPanels.getText().toString().isEmpty()) results.append("Paneles: ").append(tvPanels.getText().toString()).append("\n");
+
+        TextView tvBat = findViewById(R.id.tvBatResult);
+        if (tvBat != null && !tvBat.getText().toString().isEmpty()) results.append("Baterías: ").append(tvBat.getText().toString()).append("\n");
+
+        TextView tvInv = findViewById(R.id.tvInvResult);
+        if (tvInv != null && !tvInv.getText().toString().isEmpty()) results.append("Inversor: ").append(tvInv.getText().toString()).append("\n");
+
+        TextView tvRoi = findViewById(R.id.tvRoiResult);
+        if (tvRoi != null && !tvRoi.getText().toString().isEmpty()) results.append("ROI: ").append(tvRoi.getText().toString()).append("\n");
+
+        TextView tvTilt = findViewById(R.id.tvTiltResult);
+        if (tvTilt != null && !tvTilt.getText().toString().isEmpty()) results.append("Inclinación: ").append(tvTilt.getText().toString()).append("\n");
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, results.toString());
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

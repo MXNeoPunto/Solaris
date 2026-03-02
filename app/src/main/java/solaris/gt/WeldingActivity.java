@@ -12,9 +12,56 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.view.Menu;
+import android.view.MenuItem;
+import android.content.Intent;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class WeldingActivity extends AppCompatActivity {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem aboutItem = menu.findItem(R.id.action_about);
+        if (aboutItem != null) {
+            aboutItem.setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_share) {
+            shareResults();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void shareResults() {
+        StringBuilder results = new StringBuilder();
+        results.append("Resultados Calculadora Soldadura:\n");
+
+        TextView tvAmp = findViewById(R.id.tvWeldAmpResult);
+        if (tvAmp != null && !tvAmp.getText().toString().isEmpty()) results.append("Amperaje: ").append(tvAmp.getText().toString()).append("\n");
+
+        TextView tvDuty = findViewById(R.id.tvDutyResult);
+        if (tvDuty != null && !tvDuty.getText().toString().isEmpty()) results.append("Ciclo Trabajo: ").append(tvDuty.getText().toString()).append("\n");
+
+        TextView tvGas = findViewById(R.id.tvGasResult);
+        if (tvGas != null && !tvGas.getText().toString().isEmpty()) results.append("Flujo Gas: ").append(tvGas.getText().toString()).append("\n");
+
+        TextView tvHeat = findViewById(R.id.tvHeatResult);
+        if (tvHeat != null && !tvHeat.getText().toString().isEmpty()) results.append("Entrada Calor: ").append(tvHeat.getText().toString()).append("\n");
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, results.toString());
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -36,7 +36,7 @@
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="1. Amperaje Recomendado (SMAW)" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
                     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Grosor del Metal (mm)">
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etWeldThick" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
+                        <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etWeldThick" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcWeldAmp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular Amperaje" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvWeldAmpResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
@@ -56,13 +56,13 @@
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="3. Ciclo de Trabajo de Soldadora" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
                     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Amperaje Nominal Máx (A)">
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etDutyNomAmp" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
+                        <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etDutyNomAmp" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Ciclo de Trabajo Nominal (%)">
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etDutyNomPct" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
+                        <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etDutyNomPct" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Amperaje Deseado (A)">
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etDutyDesAmp" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
+                        <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etDutyDesAmp" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcDuty" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Estimar Ciclo Nuevo" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvDutyResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
@@ -74,7 +74,7 @@
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="4. Flujo de Gas (MIG/TIG) - L/min" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
                     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Diámetro Copa/Tobera (mm)">
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etGasCup" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
+                        <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etGasCup" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcGas" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sugerir Flujo" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvGasResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
@@ -86,13 +86,13 @@
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="5. Entrada de Calor (Heat Input)" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
                     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Voltaje (V)">
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etHeatV" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
+                        <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etHeatV" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Amperaje (A)">
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etHeatA" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
+                        <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etHeatA" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Vel. Desplazamiento (mm/min)">
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etHeatSpeed" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
+                        <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etHeatSpeed" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcHeat" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular kJ/mm" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvHeatResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>

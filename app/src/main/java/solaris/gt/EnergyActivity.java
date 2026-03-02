@@ -12,9 +12,62 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.view.Menu;
+import android.view.MenuItem;
+import android.content.Intent;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class EnergyActivity extends AppCompatActivity {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem aboutItem = menu.findItem(R.id.action_about);
+        if (aboutItem != null) {
+            aboutItem.setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_share) {
+            shareResults();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void shareResults() {
+        StringBuilder results = new StringBuilder();
+        results.append("Resultados Calculadora Energía:\n");
+
+        TextView tvOhm = findViewById(R.id.tvOhmResult);
+        if (tvOhm != null && !tvOhm.getText().toString().isEmpty()) results.append("Ley de Ohm: ").append(tvOhm.getText().toString()).append("\n");
+
+        TextView tvPower = findViewById(R.id.tvPowerResult);
+        if (tvPower != null && !tvPower.getText().toString().isEmpty()) results.append("Potencia: ").append(tvPower.getText().toString()).append("\n");
+
+        TextView tvDrop = findViewById(R.id.tvDropResult);
+        if (tvDrop != null && !tvDrop.getText().toString().isEmpty()) results.append("Caída Tensión: ").append(tvDrop.getText().toString()).append("\n");
+
+        TextView tvCable = findViewById(R.id.tvCableResult);
+        if (tvCable != null && !tvCable.getText().toString().isEmpty()) results.append("Cable: ").append(tvCable.getText().toString()).append("\n");
+
+        TextView tvCap = findViewById(R.id.tvCapResult);
+        if (tvCap != null && !tvCap.getText().toString().isEmpty()) results.append("Capacitor: ").append(tvCap.getText().toString()).append("\n");
+
+        TextView tvCost = findViewById(R.id.tvCostResult);
+        if (tvCost != null && !tvCost.getText().toString().isEmpty()) results.append("Costo: ").append(tvCost.getText().toString()).append("\n");
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, results.toString());
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
