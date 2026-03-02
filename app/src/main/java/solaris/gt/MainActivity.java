@@ -2,6 +2,7 @@ package solaris.gt;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import android.os.Bundle;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean isAdsRemoved = false;
     private static final String CHANNEL_ID = "solaris_notifications";
     private static final int NOTIFICATION_PERMISSION_CODE = 1001;
+
+    private int headerClickCount = 0;
+    private long lastHeaderClickTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,11 +118,76 @@ public class MainActivity extends AppCompatActivity {
             sendWelcomeNotification();
         }
 
+        setupSecretTrick();
+
         // Setup Button Listeners
         findViewById(R.id.btnEnergy).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EnergyActivity.class)));
         findViewById(R.id.btnSolar).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SolarActivity.class)));
         findViewById(R.id.btnWelding).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, WeldingActivity.class)));
         findViewById(R.id.btnCables).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CablesActivity.class)));
+        findViewById(R.id.btnTariff).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TariffActivity.class)));
+    }
+
+    private void setupSecretTrick() {
+        TextView tvHeaderTitle = findViewById(R.id.tvHeaderTitle);
+        if (tvHeaderTitle != null) {
+            tvHeaderTitle.setOnClickListener(v -> {
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - lastHeaderClickTime > 1000) {
+                    headerClickCount = 0;
+                }
+                lastHeaderClickTime = currentTime;
+                headerClickCount++;
+
+                if (headerClickCount == 5) {
+                    headerClickCount = 0;
+                    activateSecretTrick();
+                }
+            });
+        }
+    }
+
+    private void activateSecretTrick() {
+        SharedPreferences prefs = getSharedPreferences("SecretTrick", MODE_PRIVATE);
+        long lastTrickTime = prefs.getLong("last_used", 0);
+        long currentTime = System.currentTimeMillis();
+
+        // 1 day = 86400000 ms
+        if (currentTime - lastTrickTime >= 86400000) {
+            prefs.edit()
+                .putLong("last_used", currentTime)
+                .putLong("expiration", currentTime + 600000) // 10 minutes
+                .apply();
+
+            Toast.makeText(this, "¡Truco Secreto! 10 min sin anuncios", Toast.LENGTH_LONG).show();
+            checkAndApplySecretTrick();
+        } else {
+            Toast.makeText(this, "El truco secreto solo se puede usar 1 vez al día", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void checkAndApplySecretTrick() {
+        if (isAdsRemoved) return; // Ya es premium, no necesita el truco
+
+        SharedPreferences prefs = getSharedPreferences("SecretTrick", MODE_PRIVATE);
+        long expiration = prefs.getLong("expiration", 0);
+        long currentTime = System.currentTimeMillis();
+
+        if (currentTime < expiration) {
+            isAdsRemoved = true;
+            runOnUiThread(() -> {
+                AdView adView = findViewById(R.id.adView);
+                if (adView != null) {
+                    adView.setVisibility(View.GONE);
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkAndApplySecretTrick();
     }
 
     private void createNotificationChannel() {
@@ -234,6 +303,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        View btnRateApp = dialog.findViewById(R.id.btnRateApp);
+        if (btnRateApp != null) {
+            SharedPreferences ratePrefs = getSharedPreferences("RatePrefs", MODE_PRIVATE);
+            boolean dontShowAgain = ratePrefs.getBoolean("dont_show_again", false);
+            if (dontShowAgain) {
+                btnRateApp.setVisibility(View.GONE);
+            } else {
+                btnRateApp.setOnClickListener(v -> {
+                    dialog.dismiss();
+                    showRateDialog();
+                });
+            }
+        }
+
         View btnAbout = dialog.findViewById(R.id.btnAbout);
         if (btnAbout != null) {
             btnAbout.setOnClickListener(v -> {
@@ -260,6 +343,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         dialog.show();
+    }
+
+    private void showRateDialog() {
+        SharedPreferences ratePrefs = getSharedPreferences("RatePrefs", MODE_PRIVATE);
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Calificar Solaris")
+                .setMessage("¿Te gusta la aplicación? Por favor tómate un momento para calificarla en la Play Store.")
+                .setPositiveButton("Aceptar", (dialogInterface, i) -> {
+                    ratePrefs.edit().putBoolean("dont_show_again", true).apply();
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, android.net.Uri.parse("market://details?id=" + getPackageName())));
+                    } catch (android.content.ActivityNotFoundException e) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
+                    }
+                })
+                .setNeutralButton("Más tarde", null)
+                .setNegativeButton("No mostrar", (dialogInterface, i) -> {
+                    ratePrefs.edit().putBoolean("dont_show_again", true).apply();
+                })
+                .show();
     }
 
     @Override

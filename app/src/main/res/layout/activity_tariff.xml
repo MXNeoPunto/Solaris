@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/cables_coordinator">
+    android:id="@+id/tariff_coordinator">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/title_activity_cables"
+            app:title="Tarifas Eléctricas"
             app:navigationIcon="?attr/homeAsUpIndicator"
             style="@style/Widget.Material3.Toolbar.Surface" />
 
@@ -30,6 +30,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Advertencia: Esto no reemplaza ni mejora los costos de tu facturación y usos solo es calculadora de tarifas."
+                android:textColor="?attr/colorError"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -47,64 +55,74 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Guía de Cables AWG y Amperaje (Cobre @ 75°C)"
+                        android:text="Calculadora de Tarifa y Ahorro"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="16dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="• AWG 14: 15 Amperios (Iluminación general)"
                         android:layout_marginBottom="8dp"/>
 
-                    <View
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?android:attr/listDivider"
-                        android:layout_marginBottom="8dp" />
+                        android:layout_height="wrap_content"
+                        android:hint="Precio por kWh (según su factura)"
+                        android:layout_marginBottom="8dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etTariffPrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLength="8"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Consumo mensual (kWh)"
+                        android:layout_marginBottom="8dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etTariffCons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLength="8"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="• AWG 12: 20 Amperios (Tomacorrientes en hogar)"
-                        android:layout_marginBottom="8dp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?android:attr/listDivider"
-                        android:layout_marginBottom="8dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="• AWG 10: 30 Amperios (Aires, secadoras de ropa pequeñas)"
-                        android:layout_marginBottom="8dp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?android:attr/listDivider"
-                        android:layout_marginBottom="8dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="• AWG 8: 40 Amperios (Estufas, secadoras eléctricas)"
-                        android:layout_marginBottom="8dp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?android:attr/listDivider"
-                        android:layout_marginBottom="8dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="• AWG 6: 55 Amperios (Paneles de subdistribución)"
+                        android:text="Moneda"
+                        android:layout_marginTop="8dp"
                         android:layout_marginBottom="4dp"/>
+
+                    <Spinner
+                        android:id="@+id/spCurrency"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:minHeight="48dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tipo de tarifa"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="4dp"/>
+
+                    <Spinner
+                        android:id="@+id/spTariffType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:minHeight="48dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCalcTariff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Calcular"
+                        style="@style/Widget.Material3.Button.TonalButton"/>
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -125,15 +143,30 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Caída de Tensión"
+                        android:text="Resultados"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
 
                     <TextView
+                        android:id="@+id/tvTariffTotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Para distancias largas (mayores a 30 metros), considere aumentar el grosor del cable (ej. pasar de AWG 12 a AWG 10) para evitar que la caída de tensión sea superior al 3-5%." />
+                        android:text="Total estimado: "
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvTariffSavings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ahorro con panel solar: "
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvTariffROI"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Retorno de inversión: " />
 
                 </LinearLayout>
 
