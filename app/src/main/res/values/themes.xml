@@ -8,7 +8,7 @@
 
     <style name="Theme.Solaris.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#FFFFFF</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_solar</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_app_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.Solaris</item>
     </style>
 </resources>
