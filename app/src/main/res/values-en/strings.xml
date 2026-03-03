@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Solaris</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_energy">Electric Energy</string>
+    <string name="title_activity_solar">Solar Energy</string>
+    <string name="title_activity_welding">Welding</string>
+    <string name="title_activity_cables">Electrical Cables</string>
+    <string name="title_activity_tariff">Electricity Rates</string>
+    <string name="menu_about">About</string>
+    <string name="about_description">Solaris v1.0\n\nA modern app with Material You.\n\nDeveloped with ❤️.</string>
+
+    <!-- MainActivity -->
+    <string name="main_tools_header">Tools</string>
+
+    <!-- Options Dialog -->
+    <string name="options_title">Options</string>
+    <string name="options_appearance">Appearance</string>
+    <string name="options_theme_light">Light Mode</string>
+    <string name="options_theme_dark">Dark Mode</string>
+    <string name="options_theme_system">System Default</string>
+    <string name="options_language">Language</string>
+    <string name="options_lang_es">Español</string>
+    <string name="options_lang_en">English</string>
+    <string name="options_lang_pt">Português</string>
+    <string name="options_remove_ads">Remove Ads (Permanent $1.99)</string>
+    <string name="options_rate_app">Rate App</string>
+
+    <!-- Rate Dialog -->
+    <string name="rate_title">Rate Solaris</string>
+    <string name="rate_message">Do you like the application? Please take a moment to rate it on the Play Store.</string>
+    <string name="rate_positive">Accept</string>
+    <string name="rate_neutral">Later</string>
+    <string name="rate_negative">Don\'t show</string>
+
+    <!-- Secret Trick -->
+    <string name="secret_trick_activated">Secret Trick! 10 min without ads</string>
+    <string name="secret_trick_limit">The secret trick can only be used once a day</string>
+</resources>
