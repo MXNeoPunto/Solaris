@@ -8,7 +8,7 @@
     <string name="title_activity_cables">Cabos Elétricos</string>
     <string name="title_activity_tariff">Tarifas de Eletricidade</string>
     <string name="menu_about">Sobre</string>
-    <string name="about_description">Solaris v1.0\n\nUm aplicativo moderno com Material You.\n\nDesenvolvido com ❤️.</string>
+    <string name="about_description">A NeoPunto é uma empresa de desenvolvimento de aplicativos Android e sites. Para orçamentos, acesse NeoPunto.com ou escreva-nos no WhatsApp +502 56434857 (linha da Guatemala).\n\nUm aplicativo moderno com Material You.\n\nDesenvolvido com ❤️.</string>
 
     <!-- MainActivity -->
     <string name="main_tools_header">Ferramentas</string>

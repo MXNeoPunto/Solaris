@@ -18,7 +18,7 @@ import android.content.Intent;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class WeldingActivity extends AppCompatActivity {
-    private SoundHelper soundHelper;
+
 
 
     @Override
@@ -70,7 +70,7 @@ public class WeldingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_welding);
-        soundHelper = new SoundHelper(this);
+
 
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
@@ -94,7 +94,7 @@ public class WeldingActivity extends AppCompatActivity {
     private void setupTool1Amperage() {
         EditText etThick = findViewById(R.id.etWeldThick);
         TextView tvResult = findViewById(R.id.tvWeldAmpResult);
-        findViewById(R.id.btnCalcWeldAmp).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
+        findViewById(R.id.btnCalcWeldAmp).setOnClickListener(v -> {
             try {
                 double thick = Double.parseDouble(etThick.getText().toString());
                 // Regla general: 40 amperios por cada mm (1 amperio por cada 0.001 pulg)
@@ -112,7 +112,7 @@ public class WeldingActivity extends AppCompatActivity {
         EditText etNomPct = findViewById(R.id.etDutyNomPct);
         EditText etDesA = findViewById(R.id.etDutyDesAmp);
         TextView tvResult = findViewById(R.id.tvDutyResult);
-        findViewById(R.id.btnCalcDuty).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
+        findViewById(R.id.btnCalcDuty).setOnClickListener(v -> {
             try {
                 double nomA = Double.parseDouble(etNomA.getText().toString());
                 double nomPct = Double.parseDouble(etNomPct.getText().toString()) / 100.0;
@@ -130,7 +130,7 @@ public class WeldingActivity extends AppCompatActivity {
     private void setupTool4GasFlow() {
         EditText etCup = findViewById(R.id.etGasCup);
         TextView tvResult = findViewById(R.id.tvGasResult);
-        findViewById(R.id.btnCalcGas).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
+        findViewById(R.id.btnCalcGas).setOnClickListener(v -> {
             try {
                 double cup = Double.parseDouble(etCup.getText().toString());
                 // Regla empirica: Flujo (L/min) ~ Diametro copa (mm)
@@ -148,7 +148,7 @@ public class WeldingActivity extends AppCompatActivity {
         EditText etA = findViewById(R.id.etHeatA);
         EditText etSpeed = findViewById(R.id.etHeatSpeed);
         TextView tvResult = findViewById(R.id.tvHeatResult);
-        findViewById(R.id.btnCalcHeat).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
+        findViewById(R.id.btnCalcHeat).setOnClickListener(v -> {
             try {
                 double vlt = Double.parseDouble(etV.getText().toString());
                 double amp = Double.parseDouble(etA.getText().toString());
@@ -166,8 +166,5 @@ public class WeldingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (soundHelper != null) {
-            soundHelper.release();
-        }
     }
 }
