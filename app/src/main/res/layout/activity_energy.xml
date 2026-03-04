@@ -43,14 +43,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="1. Ley de Ohm" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Voltaje (V)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_30" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_16">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etOhmVoltage" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Corriente (A)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_10">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etOhmCurrent" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcOhm" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular Resistencia (Ω)" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcOhm" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_43" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvOhmResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -67,14 +67,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="2. Calculadora de Potencia" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Voltaje (V)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_49" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_16">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etPowerVoltage" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Corriente (A)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_10">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etPowerCurrent" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcPower" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular Potencia (W)" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcPower" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_38" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvPowerResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -91,17 +91,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="3. Caída de Tensión (Cobre)" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Longitud (metros)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_50" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_9">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etDropLength" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Corriente (A)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_10">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etDropCurrent" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Sección (mm²)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_3">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etDropArea" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcDrop" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular Caída (V)" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcDrop" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_22" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvDropResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -118,11 +118,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="4. Calibre de Cable (Cobre 75°C)" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Corriente Máxima (A)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_39" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_27">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etCableCurrent" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcCable" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sugerir Calibre AWG" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcCable" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_46" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvCableResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -139,14 +139,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="5. Energía de Capacitor" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Capacitancia (Microfaradios μF)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_36" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_4">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etCapCapacitance" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Voltaje (V)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_16">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etCapVoltage" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcCap" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular Energía (Joules)" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcCap" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_17" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvCapResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -163,17 +163,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="6. Costo de Consumo" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Potencia del equipo (Watts)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_34" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_11">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etCostPower" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Horas de uso al día">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_25">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etCostTime" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Costo por kWh ($)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_0">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etCostRate" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcCost" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular Costo Mensual" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcCost" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_31" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvCostResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

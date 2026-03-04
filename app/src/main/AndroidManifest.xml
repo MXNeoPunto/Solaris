@@ -8,6 +8,7 @@
     <application android:name=".SolarisApp" android:localeConfig="@xml/locales_config"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Solaris"
@@ -69,7 +70,7 @@
         </activity>
         <activity
             android:name=".TariffActivity"
-            android:label="Tarifas Eléctricas"
+            android:label="@string/title_activity_tariff"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
