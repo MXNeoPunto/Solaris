@@ -39,6 +39,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.AdError;
+import android.widget.PopupMenu;
 
 public class MainActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
@@ -266,39 +267,48 @@ public class MainActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.bottom_sheet_options);
 
         // Language configuration
-        com.google.android.material.button.MaterialButtonToggleGroup tgLanguage = dialog.findViewById(R.id.tgLanguage);
+        com.google.android.material.button.MaterialButton btnLanguageSelector = dialog.findViewById(R.id.btnLanguageSelector);
 
-        if (tgLanguage != null) {
+        if (btnLanguageSelector != null) {
             LocaleListCompat currentLocaleList = AppCompatDelegate.getApplicationLocales();
-            if (currentLocaleList.isEmpty()) {
-                tgLanguage.check(R.id.btnLangSystem);
-            } else {
+            if (!currentLocaleList.isEmpty()) {
                 String lang = currentLocaleList.get(0).getLanguage();
                 if (lang.equals("es")) {
-                    tgLanguage.check(R.id.btnLangEs);
+                    btnLanguageSelector.setText(R.string.options_lang_es);
                 } else if (lang.equals("en")) {
-                    tgLanguage.check(R.id.btnLangEn);
+                    btnLanguageSelector.setText(R.string.options_lang_en);
                 } else if (lang.equals("pt")) {
-                    tgLanguage.check(R.id.btnLangPt);
+                    btnLanguageSelector.setText(R.string.options_lang_pt);
                 } else {
-                    tgLanguage.check(R.id.btnLangSystem);
+                    btnLanguageSelector.setText(R.string.options_theme_system);
                 }
+            } else {
+                btnLanguageSelector.setText(R.string.options_theme_system);
             }
 
-            tgLanguage.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-                if (!isChecked) return; // Only trigger for the newly checked button
+            btnLanguageSelector.setOnClickListener(v -> {
+                PopupMenu popupMenu = new PopupMenu(this, btnLanguageSelector);
+                popupMenu.getMenu().add(0, 0, 0, R.string.options_theme_system);
+                popupMenu.getMenu().add(0, 1, 1, R.string.options_lang_es);
+                popupMenu.getMenu().add(0, 2, 2, R.string.options_lang_en);
+                popupMenu.getMenu().add(0, 3, 3, R.string.options_lang_pt);
 
-                LocaleListCompat locales = LocaleListCompat.getEmptyLocaleList();
-                if (checkedId == R.id.btnLangEs) {
-                    locales = LocaleListCompat.forLanguageTags("es");
-                } else if (checkedId == R.id.btnLangEn) {
-                    locales = LocaleListCompat.forLanguageTags("en");
-                } else if (checkedId == R.id.btnLangPt) {
-                    locales = LocaleListCompat.forLanguageTags("pt");
-                }
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    LocaleListCompat locales = LocaleListCompat.getEmptyLocaleList();
+                    int itemId = item.getItemId();
+                    if (itemId == 1) {
+                        locales = LocaleListCompat.forLanguageTags("es");
+                    } else if (itemId == 2) {
+                        locales = LocaleListCompat.forLanguageTags("en");
+                    } else if (itemId == 3) {
+                        locales = LocaleListCompat.forLanguageTags("pt");
+                    }
 
-                AppCompatDelegate.setApplicationLocales(locales);
-                dialog.dismiss();
+                    AppCompatDelegate.setApplicationLocales(locales);
+                    dialog.dismiss();
+                    return true;
+                });
+                popupMenu.show();
             });
         }
 
