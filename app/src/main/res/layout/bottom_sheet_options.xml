@@ -18,75 +18,47 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/options_appearance"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
-
-    <RadioGroup
-        android:id="@+id/rgTheme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp">
-
-        <RadioButton
-            android:id="@+id/rbThemeLight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/options_theme_light"/>
-
-        <RadioButton
-            android:id="@+id/rbThemeDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/options_theme_dark"/>
-
-        <RadioButton
-            android:id="@+id/rbThemeSystem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/options_theme_system"/>
-    </RadioGroup>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/options_language"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginBottom="8dp"/>
 
-    <RadioGroup
-        android:id="@+id/rgLanguage"
-        android:layout_width="match_parent"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/tgLanguage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp">
+        android:layout_marginBottom="24dp"
+        app:singleSelection="true"
+        app:selectionRequired="true">
 
-        <RadioButton
-            android:id="@+id/rbLangSystem"
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/btnLangSystem"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/options_theme_system"/>
 
-        <RadioButton
-            android:id="@+id/rbLangEs"
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/btnLangEs"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/options_lang_es"/>
 
-        <RadioButton
-            android:id="@+id/rbLangEn"
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/btnLangEn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/options_lang_en"/>
 
-        <RadioButton
-            android:id="@+id/rbLangPt"
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/btnLangPt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/options_lang_pt"/>
-    </RadioGroup>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <com.google.android.material.button.MaterialButton
 

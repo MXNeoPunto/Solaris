@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         themeSwitch.setChecked(isNightMode);
-        themeText.setText(isNightMode ? "Oscuro" : "Claro");
+        themeText.setText(isNightMode ? getString(R.string.theme_dark) : getString(R.string.theme_light));
 
         themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int newMode = isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
 
             AppCompatDelegate.setDefaultNightMode(newMode);
-            themeText.setText(isChecked ? "Oscuro" : "Claro");
+            themeText.setText(isChecked ? getString(R.string.theme_dark) : getString(R.string.theme_light));
         });
 
         findViewById(R.id.btnOptions).setOnClickListener(v -> {  showOptionsDialog(); });
@@ -265,72 +265,35 @@ public class MainActivity extends AppCompatActivity {
         BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(R.layout.bottom_sheet_options);
 
-        SharedPreferences prefs = getSharedPreferences("ThemePrefs", MODE_PRIVATE);
-        int themeMode = prefs.getInt("theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-
-        RadioGroup rgTheme = dialog.findViewById(R.id.rgTheme);
-        RadioButton rbThemeLight = dialog.findViewById(R.id.rbThemeLight);
-        RadioButton rbThemeDark = dialog.findViewById(R.id.rbThemeDark);
-        RadioButton rbThemeSystem = dialog.findViewById(R.id.rbThemeSystem);
-
-        if (rgTheme != null) {
-            if (themeMode == AppCompatDelegate.MODE_NIGHT_NO && rbThemeLight != null) {
-                rbThemeLight.setChecked(true);
-            } else if (themeMode == AppCompatDelegate.MODE_NIGHT_YES && rbThemeDark != null) {
-                rbThemeDark.setChecked(true);
-            } else if (rbThemeSystem != null) {
-                rbThemeSystem.setChecked(true);
-            }
-
-            rgTheme.setOnCheckedChangeListener((group, checkedId) -> {
-                int mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
-                if (checkedId == R.id.rbThemeLight) {
-                    mode = AppCompatDelegate.MODE_NIGHT_NO;
-                } else if (checkedId == R.id.rbThemeDark) {
-                    mode = AppCompatDelegate.MODE_NIGHT_YES;
-                }
-
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putInt("theme", mode);
-                editor.apply();
-
-                AppCompatDelegate.setDefaultNightMode(mode);
-                dialog.dismiss();
-            });
-        }
-
-
         // Language configuration
-        RadioGroup rgLanguage = dialog.findViewById(R.id.rgLanguage);
-        RadioButton rbLangSystem = dialog.findViewById(R.id.rbLangSystem);
-        RadioButton rbLangEs = dialog.findViewById(R.id.rbLangEs);
-        RadioButton rbLangEn = dialog.findViewById(R.id.rbLangEn);
-        RadioButton rbLangPt = dialog.findViewById(R.id.rbLangPt);
+        com.google.android.material.button.MaterialButtonToggleGroup tgLanguage = dialog.findViewById(R.id.tgLanguage);
 
-        if (rgLanguage != null) {
+        if (tgLanguage != null) {
             LocaleListCompat currentLocaleList = AppCompatDelegate.getApplicationLocales();
             if (currentLocaleList.isEmpty()) {
-                if (rbLangSystem != null) rbLangSystem.setChecked(true);
+                tgLanguage.check(R.id.btnLangSystem);
             } else {
                 String lang = currentLocaleList.get(0).getLanguage();
-                if (lang.equals("es") && rbLangEs != null) {
-                    rbLangEs.setChecked(true);
-                } else if (lang.equals("en") && rbLangEn != null) {
-                    rbLangEn.setChecked(true);
-                } else if (lang.equals("pt") && rbLangPt != null) {
-                    rbLangPt.setChecked(true);
+                if (lang.equals("es")) {
+                    tgLanguage.check(R.id.btnLangEs);
+                } else if (lang.equals("en")) {
+                    tgLanguage.check(R.id.btnLangEn);
+                } else if (lang.equals("pt")) {
+                    tgLanguage.check(R.id.btnLangPt);
                 } else {
-                    if (rbLangSystem != null) rbLangSystem.setChecked(true);
+                    tgLanguage.check(R.id.btnLangSystem);
                 }
             }
 
-            rgLanguage.setOnCheckedChangeListener((group, checkedId) -> {
+            tgLanguage.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+                if (!isChecked) return; // Only trigger for the newly checked button
+
                 LocaleListCompat locales = LocaleListCompat.getEmptyLocaleList();
-                if (checkedId == R.id.rbLangEs) {
+                if (checkedId == R.id.btnLangEs) {
                     locales = LocaleListCompat.forLanguageTags("es");
-                } else if (checkedId == R.id.rbLangEn) {
+                } else if (checkedId == R.id.btnLangEn) {
                     locales = LocaleListCompat.forLanguageTags("en");
-                } else if (checkedId == R.id.rbLangPt) {
+                } else if (checkedId == R.id.btnLangPt) {
                     locales = LocaleListCompat.forLanguageTags("pt");
                 }
 

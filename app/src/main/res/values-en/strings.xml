@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Solaris</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
     <string name="title_activity_about">About</string>
     <string name="title_activity_energy">Electric Energy</string>
     <string name="title_activity_solar">Solar Energy</string>

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Solaris</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="theme_light">Claro</string>
     <string name="title_activity_about">Acerca de</string>
     <string name="title_activity_energy">Energía Eléctrica</string>
     <string name="title_activity_solar">Energía Solar</string>
