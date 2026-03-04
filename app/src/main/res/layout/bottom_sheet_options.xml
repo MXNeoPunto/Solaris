@@ -23,42 +23,14 @@
         android:textStyle="bold"
         android:layout_marginBottom="8dp"/>
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/tgLanguage"
-        android:layout_width="wrap_content"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLanguageSelector"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/options_language"
         android:layout_marginBottom="24dp"
-        app:singleSelection="true"
-        app:selectionRequired="true">
-
-        <com.google.android.material.button.MaterialButton
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/btnLangSystem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/options_theme_system"/>
-
-        <com.google.android.material.button.MaterialButton
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/btnLangEs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/options_lang_es"/>
-
-        <com.google.android.material.button.MaterialButton
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/btnLangEn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/options_lang_en"/>
-
-        <com.google.android.material.button.MaterialButton
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/btnLangPt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/options_lang_pt"/>
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+        app:icon="@drawable/ic_language"
+        style="@style/Widget.Material3.Button" />
 
     <com.google.android.material.button.MaterialButton
 
