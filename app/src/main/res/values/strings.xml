@@ -12,12 +12,12 @@
     <string name="about_description">NeoPunto es una empresa de desarrollo Android y sitios web. Para cotizaciones, ingrese a NeoPunto.com o escríbanos al WhatsApp +502 56434857 (línea de Guatemala).\n\nUna aplicación moderna con Material You.\n\nDesarrollado con ❤️.</string>
 
     <!-- MainActivity -->
-    <string name="main_tools_header">Ferramentas</string>
+    <string name="main_tools_header">Herramientas</string>
     <string name="main_subtitle">Plataforma de gestión energética</string>
-    <string name="card_redesigned">Redesigned</string>
-    <string name="card_harmonic_colors">Harmonic Colors</string>
-    <string name="card_harmonic_on">On</string>
-    <string name="card_modern_design">Modern Design</string>
+    <string name="card_redesigned">Rediseñado</string>
+    <string name="card_harmonic_colors">Colores Armónicos</string>
+    <string name="card_harmonic_on">Activado</string>
+    <string name="card_modern_design">Diseño Moderno</string>
     <string name="card_modern_100">100%</string>
     <string name="subtitle_energy">Fórmulas de electricidad</string>
     <string name="subtitle_solar">Paneles solares</string>
@@ -37,6 +37,9 @@
     <string name="options_lang_pt">Português</string>
     <string name="options_remove_ads">Eliminar Anuncios (Permanente $1.99)</string>
     <string name="options_rate_app">Calificar App</string>
+
+    <!-- Menu -->
+    <string name="action_share">Compartir</string>
 
     <!-- Rate Dialog -->
     <string name="rate_title">Calificar Solaris</string>

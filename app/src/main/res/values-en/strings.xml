@@ -13,7 +13,7 @@
     <string name="about_description">NeoPunto is an Android app and website development company. For quotes, visit NeoPunto.com or write to us on WhatsApp +502 56434857 (Guatemala line).\n\nA modern app with Material You.\n\nDeveloped with ❤️.</string>
 
     <!-- MainActivity -->
-    <string name="main_tools_header">Ferramentas</string>
+    <string name="main_tools_header">Tools</string>
     <string name="main_subtitle">Energy management platform</string>
     <string name="card_redesigned">Redesigned</string>
     <string name="card_harmonic_colors">Harmonic Colors</string>
@@ -38,6 +38,9 @@
     <string name="options_lang_pt">Português</string>
     <string name="options_remove_ads">Remove Ads (Permanent $1.99)</string>
     <string name="options_rate_app">Rate App</string>
+
+    <!-- Menu -->
+    <string name="action_share">Share</string>
 
     <!-- Rate Dialog -->
     <string name="rate_title">Rate Solaris</string>
