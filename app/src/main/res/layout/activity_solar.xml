@@ -34,17 +34,17 @@
             <!-- Tool 1: Panels -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="1. Cantidad de Paneles" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Consumo Diario (kWh)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_16" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_6">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etSolarCons" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Potencia del Panel (W)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_17">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etSolarPanelW" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Horas de Sol Pico">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_18">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etSolarHSP" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="5.0" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcPanels" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcPanels" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_32" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvPanelsResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -52,17 +52,17 @@
             <!-- Tool 2: Batteries -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="2. Baterías Necesarias (Ah)" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Consumo Diario (Wh)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_24" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_21">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etBatCons" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Días de Autonomía">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_24">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etBatDays" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="2" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Voltaje Sistema (ej. 12, 24, 48)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_22">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etBatVolts" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="12" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcBat" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular Capacidad" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcBat" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_6" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvBatResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -70,11 +70,11 @@
             <!-- Tool 3: Inverter -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="3. Tamaño Inversor" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Potencia simultánea de carga (W)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_14" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_1">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etInvLoad" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcInv" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sugerir Inversor" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcInv" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_12" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvInvResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -82,23 +82,23 @@
             <!-- Tool 4: HSP Info -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="4. Horas Sol Pico (HSP)" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Las HSP varían según la región. Valores comunes en Latinoamérica:"/>
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="• México/Centroamérica: 4.5 a 6.0\n• Región Andina: 4.0 a 5.5\n• Cono Sur: 3.5 a 5.0"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_44" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_18"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_41"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Tool 5: ROI -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="5. Retorno de Inversión (Años)" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Costo Total Sistema ($)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_42" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_2">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etRoiCost" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Ahorro Mensual Estimado ($)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_20">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etRoiSav" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcRoi" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcRoi" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_32" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvRoiResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -106,11 +106,11 @@
             <!-- Tool 6: Tilt -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="6. Ángulo Inclinación Panel" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Latitud del sitio (grados)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_4" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_23">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etTiltLat" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcTilt" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Estimar Ángulo Anual" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcTilt" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_45" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvTiltResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

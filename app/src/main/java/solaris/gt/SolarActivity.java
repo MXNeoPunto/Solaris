@@ -18,6 +18,8 @@ import android.content.Intent;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class SolarActivity extends AppCompatActivity {
+    private SoundHelper soundHelper;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,6 +73,7 @@ public class SolarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_solar);
+        soundHelper = new SoundHelper(this);
 
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
@@ -97,7 +100,7 @@ public class SolarActivity extends AppCompatActivity {
         EditText etPanelW = findViewById(R.id.etSolarPanelW);
         EditText etHSP = findViewById(R.id.etSolarHSP);
         TextView tvResult = findViewById(R.id.tvPanelsResult);
-        findViewById(R.id.btnCalcPanels).setOnClickListener(v -> {
+        findViewById(R.id.btnCalcPanels).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
             try {
                 double cons = Double.parseDouble(etCons.getText().toString());
                 double panelW = Double.parseDouble(etPanelW.getText().toString());
@@ -118,7 +121,7 @@ public class SolarActivity extends AppCompatActivity {
         EditText etDays = findViewById(R.id.etBatDays);
         EditText etVolts = findViewById(R.id.etBatVolts);
         TextView tvResult = findViewById(R.id.tvBatResult);
-        findViewById(R.id.btnCalcBat).setOnClickListener(v -> {
+        findViewById(R.id.btnCalcBat).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
             try {
                 double cons = Double.parseDouble(etCons.getText().toString());
                 double days = Double.parseDouble(etDays.getText().toString());
@@ -135,7 +138,7 @@ public class SolarActivity extends AppCompatActivity {
     private void setupTool3Inverter() {
         EditText etLoad = findViewById(R.id.etInvLoad);
         TextView tvResult = findViewById(R.id.tvInvResult);
-        findViewById(R.id.btnCalcInv).setOnClickListener(v -> {
+        findViewById(R.id.btnCalcInv).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
             try {
                 double load = Double.parseDouble(etLoad.getText().toString());
                 // Inverter size + 25% safety margin
@@ -151,7 +154,7 @@ public class SolarActivity extends AppCompatActivity {
         EditText etCost = findViewById(R.id.etRoiCost);
         EditText etSav = findViewById(R.id.etRoiSav);
         TextView tvResult = findViewById(R.id.tvRoiResult);
-        findViewById(R.id.btnCalcRoi).setOnClickListener(v -> {
+        findViewById(R.id.btnCalcRoi).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
             try {
                 double cost = Double.parseDouble(etCost.getText().toString());
                 double sav = Double.parseDouble(etSav.getText().toString());
@@ -167,7 +170,7 @@ public class SolarActivity extends AppCompatActivity {
     private void setupTool6Tilt() {
         EditText etLat = findViewById(R.id.etTiltLat);
         TextView tvResult = findViewById(R.id.tvTiltResult);
-        findViewById(R.id.btnCalcTilt).setOnClickListener(v -> {
+        findViewById(R.id.btnCalcTilt).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
             try {
                 double lat = Double.parseDouble(etLat.getText().toString());
                 // Simple rule of thumb: Tilt roughly equals latitude for annual perf
@@ -176,5 +179,13 @@ public class SolarActivity extends AppCompatActivity {
                 tvResult.setText("Valores inválidos");
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (soundHelper != null) {
+            soundHelper.release();
+        }
     }
 }

@@ -41,12 +41,11 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.AdError;
 
 public class MainActivity extends AppCompatActivity {
-
     private InterstitialAd mInterstitialAd;
     private BillingHelper billingHelper;
     private boolean isAdsRemoved = false;
     private int interstitialClickCount = 0;
-    private MediaPlayer clickMediaPlayer;
+    private SoundHelper soundHelper;
 
     private int headerClickCount = 0;
     private long lastHeaderClickTime = 0;
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        findViewById(R.id.btnOptions).setOnClickListener(v -> { playClickSound(); showOptionsDialog(); });
+        findViewById(R.id.btnOptions).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick(); showOptionsDialog(); });
 
 
 
@@ -102,20 +101,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupSecretTrick();
-        clickMediaPlayer = MediaPlayer.create(this, R.raw.click_sound);
+        soundHelper = new SoundHelper(this);
 
 // Setup Button Listeners
-        findViewById(R.id.btnEnergy).setOnClickListener(v -> { playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, EnergyActivity.class)); });
-        findViewById(R.id.btnSolar).setOnClickListener(v -> { playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, SolarActivity.class)); });
-        findViewById(R.id.btnWelding).setOnClickListener(v -> { playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, WeldingActivity.class)); });
-        findViewById(R.id.btnCables).setOnClickListener(v -> { playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, CablesActivity.class)); });
-        findViewById(R.id.btnTariff).setOnClickListener(v -> { playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, TariffActivity.class)); });
+        findViewById(R.id.btnEnergy).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick(); showInterstitialWithIntent(new Intent(MainActivity.this, EnergyActivity.class)); });
+        findViewById(R.id.btnSolar).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick(); showInterstitialWithIntent(new Intent(MainActivity.this, SolarActivity.class)); });
+        findViewById(R.id.btnWelding).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick(); showInterstitialWithIntent(new Intent(MainActivity.this, WeldingActivity.class)); });
+        findViewById(R.id.btnCables).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick(); showInterstitialWithIntent(new Intent(MainActivity.this, CablesActivity.class)); });
+        findViewById(R.id.btnTariff).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick(); showInterstitialWithIntent(new Intent(MainActivity.this, TariffActivity.class)); });
     }
 
     private void setupSecretTrick() {
         TextView tvHeaderTitle = findViewById(R.id.tvHeaderTitle);
         if (tvHeaderTitle != null) {
-            tvHeaderTitle.setOnClickListener(v -> {
+            tvHeaderTitle.setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastHeaderClickTime > 1000) {
                     headerClickCount = 0;
@@ -177,11 +176,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void playClickSound() {
-        if (clickMediaPlayer != null) {
-            if (clickMediaPlayer.isPlaying()) {
-                clickMediaPlayer.seekTo(0);
-            }
-            clickMediaPlayer.start();
+        if (soundHelper != null) {
+            soundHelper.playClick();
         }
     }
 
@@ -321,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
             if (isAdsRemoved) {
                 btnRemoveAds.setVisibility(View.GONE);
             } else {
-                btnRemoveAds.setOnClickListener(v -> {
+                btnRemoveAds.setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
                     dialog.dismiss();
                     if (billingHelper != null) {
                         billingHelper.initiatePurchaseFlow();
@@ -337,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
             if (dontShowAgain) {
                 btnRateApp.setVisibility(View.GONE);
             } else {
-                btnRateApp.setOnClickListener(v -> {
+                btnRateApp.setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
                     dialog.dismiss();
                     showRateDialog();
                 });
@@ -346,9 +342,9 @@ public class MainActivity extends AppCompatActivity {
 
         View btnAbout = dialog.findViewById(R.id.btnAbout);
         if (btnAbout != null) {
-            btnAbout.setOnClickListener(v -> {
+            btnAbout.setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
                 dialog.dismiss();
-                playClickSound(); showInterstitialWithIntent(new Intent(MainActivity.this, AboutActivity.class));
+                showInterstitialWithIntent(new Intent(MainActivity.this, AboutActivity.class));
             });
         }
 
@@ -381,9 +377,9 @@ public class MainActivity extends AppCompatActivity {
         if (billingHelper != null) {
             billingHelper.endConnection();
         }
-        if (clickMediaPlayer != null) {
-            clickMediaPlayer.release();
-            clickMediaPlayer = null;
+        if (soundHelper != null) {
+            soundHelper.release();
+            soundHelper = null;
         }
     }
 }

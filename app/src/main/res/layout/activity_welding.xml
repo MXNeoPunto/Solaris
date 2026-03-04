@@ -34,11 +34,11 @@
             <!-- Tool 1: Amperage -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="1. Amperaje Recomendado (SMAW)" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Grosor del Metal (mm)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_35" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_19">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etWeldThick" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcWeldAmp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular Amperaje" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcWeldAmp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_47" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvWeldAmpResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -46,25 +46,25 @@
             <!-- Tool 2: Electrodes -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="2. Selección de Electrodo" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Acero al Carbono Común: E6011 (Penetración Profunda), E6013 (Uso General)\nEstructural Fuerte: E7018 (Bajo Hidrógeno)\nInoxidable: E308L / E316L\nHierro Fundido: Ni-55"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_10" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_1"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Tool 3: Duty Cycle -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="3. Ciclo de Trabajo de Soldadora" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Amperaje Nominal Máx (A)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_27" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_5">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etDutyNomAmp" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Ciclo de Trabajo Nominal (%)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_7">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etDutyNomPct" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Amperaje Deseado (A)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_26">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etDutyDesAmp" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcDuty" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Estimar Ciclo Nuevo" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcDuty" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_25" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvDutyResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -72,11 +72,11 @@
             <!-- Tool 4: Gas Flow -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="4. Flujo de Gas (MIG/TIG) - L/min" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Diámetro Copa/Tobera (mm)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_9" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_15">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etGasCup" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcGas" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sugerir Flujo" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcGas" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_13" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvGasResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -84,17 +84,17 @@
             <!-- Tool 5: Heat Input -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="5. Entrada de Calor (Heat Input)" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Voltaje (V)">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_40" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_16">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etHeatV" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Amperaje (A)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_13">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etHeatA" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Vel. Desplazamiento (mm/min)">
+                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/calc_hint_str_14">
                         <com.google.android.material.textfield.TextInputEditText android:maxLength="8" android:maxLines="1" android:id="@+id/etHeatSpeed" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcHeat" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calcular kJ/mm" style="@style/Widget.Material3.Button.TonalButton"/>
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCalcHeat" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_21" style="@style/Widget.Material3.Button.TonalButton"/>
                     <TextView android:id="@+id/tvHeatResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textAlignment="center"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -102,8 +102,8 @@
             <!-- Tool 6: Symbols -->
             <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardElevation="2dp" app:cardUseCompatPadding="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="6. Guía de Símbolos AWS" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Δ Filete (Fillet)\n|| Cuadrada (Square)\nV Bisel en V (V-Groove)\nU Bisel en U (U-Groove)\nO Todo Alrededor (All around)\nBandera: Soldar en Campo (Field Weld)"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_48" android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="8dp"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/calc_str_7"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

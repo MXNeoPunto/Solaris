@@ -20,6 +20,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class TariffActivity extends AppCompatActivity {
+    private SoundHelper soundHelper;
+
 
     private EditText etPrice;
     private EditText etCons;
@@ -34,6 +36,7 @@ public class TariffActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tariff);
+        soundHelper = new SoundHelper(this);
 
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
@@ -58,7 +61,7 @@ public class TariffActivity extends AppCompatActivity {
 
         setupSpinners();
 
-        findViewById(R.id.btnCalcTariff).setOnClickListener(v -> calculate());
+        findViewById(R.id.btnCalcTariff).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick(); calculate(); });
     }
 
     private void setupSpinners() {

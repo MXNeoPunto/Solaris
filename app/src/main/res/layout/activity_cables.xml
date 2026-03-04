@@ -47,7 +47,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Guía de Cables AWG y Amperaje (Cobre @ 75°C)"
+                        android:text="@string/calc_str_33"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="16dp"/>
@@ -55,7 +55,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="• AWG 14: 15 Amperios (Iluminación general)"
+                        android:text="@string/calc_str_28"
                         android:layout_marginBottom="8dp"/>
 
                     <View
@@ -67,7 +67,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="• AWG 12: 20 Amperios (Tomacorrientes en hogar)"
+                        android:text="@string/calc_str_5"
                         android:layout_marginBottom="8dp"/>
 
                     <View
@@ -79,7 +79,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="• AWG 10: 30 Amperios (Aires, secadoras de ropa pequeñas)"
+                        android:text="@string/calc_str_19"
                         android:layout_marginBottom="8dp"/>
 
                     <View
@@ -91,7 +91,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="• AWG 8: 40 Amperios (Estufas, secadoras eléctricas)"
+                        android:text="@string/calc_str_51"
                         android:layout_marginBottom="8dp"/>
 
                     <View
@@ -103,7 +103,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="• AWG 6: 55 Amperios (Paneles de subdistribución)"
+                        android:text="@string/calc_str_26"
                         android:layout_marginBottom="4dp"/>
                 </LinearLayout>
 
@@ -125,7 +125,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Caída de Tensión"
+                        android:text="@string/calc_str_2"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
@@ -133,7 +133,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Para distancias largas (mayores a 30 metros), considere aumentar el grosor del cable (ej. pasar de AWG 12 a AWG 10) para evitar que la caída de tensión sea superior al 3-5%." />
+                        android:text="@string/calc_str_37" />
 
                 </LinearLayout>
 
