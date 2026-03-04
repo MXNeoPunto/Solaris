@@ -18,7 +18,7 @@ import android.content.Intent;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class EnergyActivity extends AppCompatActivity {
-    private SoundHelper soundHelper;
+
 
 
     @Override
@@ -76,7 +76,7 @@ public class EnergyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_energy);
-        soundHelper = new SoundHelper(this);
+
 
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
@@ -103,7 +103,7 @@ public class EnergyActivity extends AppCompatActivity {
         EditText etVolts = findViewById(R.id.etOhmVoltage);
         EditText etAmps = findViewById(R.id.etOhmCurrent);
         TextView tvResult = findViewById(R.id.tvOhmResult);
-        findViewById(R.id.btnCalcOhm).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
+        findViewById(R.id.btnCalcOhm).setOnClickListener(v -> {
             try {
                 double volts = Double.parseDouble(etVolts.getText().toString());
                 double amps = Double.parseDouble(etAmps.getText().toString());
@@ -118,7 +118,7 @@ public class EnergyActivity extends AppCompatActivity {
         EditText etVolts = findViewById(R.id.etPowerVoltage);
         EditText etAmps = findViewById(R.id.etPowerCurrent);
         TextView tvResult = findViewById(R.id.tvPowerResult);
-        findViewById(R.id.btnCalcPower).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
+        findViewById(R.id.btnCalcPower).setOnClickListener(v -> {
             try {
                 double volts = Double.parseDouble(etVolts.getText().toString());
                 double amps = Double.parseDouble(etAmps.getText().toString());
@@ -134,7 +134,7 @@ public class EnergyActivity extends AppCompatActivity {
         EditText etAmps = findViewById(R.id.etDropCurrent);
         EditText etArea = findViewById(R.id.etDropArea);
         TextView tvResult = findViewById(R.id.tvDropResult);
-        findViewById(R.id.btnCalcDrop).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
+        findViewById(R.id.btnCalcDrop).setOnClickListener(v -> {
             try {
                 double len = Double.parseDouble(etLen.getText().toString());
                 double amps = Double.parseDouble(etAmps.getText().toString());
@@ -151,7 +151,7 @@ public class EnergyActivity extends AppCompatActivity {
     private void setupTool4Cable() {
         EditText etAmps = findViewById(R.id.etCableCurrent);
         TextView tvResult = findViewById(R.id.tvCableResult);
-        findViewById(R.id.btnCalcCable).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
+        findViewById(R.id.btnCalcCable).setOnClickListener(v -> {
             try {
                 double amps = Double.parseDouble(etAmps.getText().toString());
                 String awg = "";
@@ -174,7 +174,7 @@ public class EnergyActivity extends AppCompatActivity {
         EditText etCap = findViewById(R.id.etCapCapacitance);
         EditText etVolts = findViewById(R.id.etCapVoltage);
         TextView tvResult = findViewById(R.id.tvCapResult);
-        findViewById(R.id.btnCalcCap).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
+        findViewById(R.id.btnCalcCap).setOnClickListener(v -> {
             try {
                 double capMicro = Double.parseDouble(etCap.getText().toString());
                 double volts = Double.parseDouble(etVolts.getText().toString());
@@ -192,7 +192,7 @@ public class EnergyActivity extends AppCompatActivity {
         EditText etTime = findViewById(R.id.etCostTime);
         EditText etRate = findViewById(R.id.etCostRate);
         TextView tvResult = findViewById(R.id.tvCostResult);
-        findViewById(R.id.btnCalcCost).setOnClickListener(v -> { if (soundHelper != null) soundHelper.playClick();
+        findViewById(R.id.btnCalcCost).setOnClickListener(v -> {
             try {
                 double powerW = Double.parseDouble(etPower.getText().toString());
                 double hours = Double.parseDouble(etTime.getText().toString());
@@ -210,8 +210,5 @@ public class EnergyActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (soundHelper != null) {
-            soundHelper.release();
-        }
     }
 }
