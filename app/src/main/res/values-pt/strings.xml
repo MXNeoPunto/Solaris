@@ -12,6 +12,17 @@
 
     <!-- MainActivity -->
     <string name="main_tools_header">Ferramentas</string>
+    <string name="main_subtitle">Plataforma de gestão de energia</string>
+    <string name="card_redesigned">Redesigned</string>
+    <string name="card_harmonic_colors">Harmonic Colors</string>
+    <string name="card_harmonic_on">On</string>
+    <string name="card_modern_design">Modern Design</string>
+    <string name="card_modern_100">100%</string>
+    <string name="subtitle_energy">Fórmulas de eletricidade</string>
+    <string name="subtitle_solar">Painéis solares</string>
+    <string name="subtitle_welding">Cálculos de soldagem</string>
+    <string name="subtitle_cables">Tamanhos de cabos</string>
+    <string name="subtitle_tariff">Tarifas e economias</string>
 
     <!-- Options Dialog -->
     <string name="options_title">Opções</string>
