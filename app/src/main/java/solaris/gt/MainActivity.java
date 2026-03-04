@@ -52,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Apply saved theme mode before setting the content view
+        SharedPreferences prefs = getSharedPreferences("ThemePrefs", MODE_PRIVATE);
+        int savedMode = prefs.getInt("theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(savedMode);
+
         // Handle the splash screen transition.
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
 
@@ -65,6 +70,35 @@ public class MainActivity extends AppCompatActivity {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
             return WindowInsetsCompat.CONSUMED;
+        });
+
+        com.google.android.material.materialswitch.MaterialSwitch themeSwitch = findViewById(R.id.themeSwitch);
+        TextView themeText = findViewById(R.id.themeText);
+
+        int themeMode = prefs.getInt("theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        boolean isNightMode;
+        if (themeMode == AppCompatDelegate.MODE_NIGHT_YES) {
+            isNightMode = true;
+        } else if (themeMode == AppCompatDelegate.MODE_NIGHT_NO) {
+            isNightMode = false;
+        } else {
+            int currentNightMode = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+            isNightMode = currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+        }
+
+        themeSwitch.setChecked(isNightMode);
+        themeText.setText(isNightMode ? "Oscuro" : "Claro");
+
+        themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int newMode = isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("theme", newMode);
+            editor.apply();
+
+            AppCompatDelegate.setDefaultNightMode(newMode);
+            themeText.setText(isChecked ? "Oscuro" : "Claro");
         });
 
         findViewById(R.id.btnOptions).setOnClickListener(v -> {  showOptionsDialog(); });
