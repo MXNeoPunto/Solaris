@@ -48,7 +48,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Datos Principales"
+                        android:text="@string/sub_invoice_main_data"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="16dp"/>
@@ -114,7 +114,9 @@
                             android:id="@+id/etDueDate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="none"
+                            android:focusable="false"
+                            android:clickable="true"
                             android:maxLines="1" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,7 +150,7 @@
                         android:id="@+id/btnGenerateSliders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Configurar Inquilinos"
+                        android:text="@string/sub_invoice_configure_tenants"
                         style="@style/Widget.Material3.Button.TonalButton"/>
 
                 </LinearLayout>

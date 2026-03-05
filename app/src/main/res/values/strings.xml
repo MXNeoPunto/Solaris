@@ -42,7 +42,11 @@
     <string name="sub_invoice_notes">Texto Breve (Evitar contracargos)</string>
     <string name="sub_invoice_notes_hint">Ej: Consumo correspondiente al mes...</string>
     <string name="sub_invoice_create">Crear Facturas</string>
+    <string name="sub_invoice_configure_tenants">Configurar Inquilinos</string>
+    <string name="sub_invoice_main_data">Datos Principales</string>
 
+    <string name="sub_invoice_tenant_room">Inquilino / Habitación</string>
+    <string name="sub_invoice_na">N/A</string>
     <string name="sub_invoice_tenant">Inquilino</string>
     <string name="sub_invoice_percent">%</string>
     <string name="sub_invoice_btn_create_tenant">Crear Factura</string>
@@ -50,11 +54,23 @@
     <string name="sub_invoice_dialog_title">Detalles de Factura</string>
     <string name="sub_invoice_dialog_name">Nombre / Consumidor Final</string>
     <string name="sub_invoice_dialog_name_hint">Consumidor Final</string>
-    <string name="sub_invoice_dialog_tax">Impuesto (Monto o %)</string>
-    <string name="sub_invoice_dialog_interest">Intereses</string>
+    <string name="sub_invoice_dialog_tax">Impuesto Fijo</string>
+    <string name="sub_invoice_dialog_interest">Intereses (%)</string>
     <string name="sub_invoice_dialog_btn_pdf">Guardar PDF</string>
     <string name="sub_invoice_dialog_btn_jpg">Guardar Foto JPG</string>
     <string name="sub_invoice_dialog_btn_whatsapp">Compartir Whatsapp</string>
+
+    <string name="sub_invoice_toast_enter_amount_tenants">Debe ingresar el monto total y la cantidad de inquilinos</string>
+    <string name="sub_invoice_toast_min_one_tenant">Debe haber al menos 1 inquilino</string>
+    <string name="sub_invoice_toast_error_data">Error en los datos ingresados</string>
+    <string name="sub_invoice_toast_whatsapp_not_installed">WhatsApp no está instalado.</string>
+    <string name="sub_invoice_share_intent_title">Compartir factura</string>
+    <string name="sub_invoice_toast_image_saved">Imagen guardada en Galería (Pictures/Solaris).</string>
+    <string name="sub_invoice_toast_image_error">Error creando archivo en galería.</string>
+    <string name="sub_invoice_toast_image_save_error">Error guardando la imagen</string>
+    <string name="sub_invoice_toast_pdf_saved">PDF guardado en caché (Temporal).</string>
+    <string name="sub_invoice_open_pdf">Abrir PDF</string>
+    <string name="sub_invoice_toast_pdf_error">Error guardando el PDF</string>
 
     <string name="invoice_title">FACTURA DE LUZ</string>
     <string name="invoice_app_name">SOLARIS</string>
