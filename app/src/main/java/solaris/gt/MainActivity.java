@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnWelding).setOnClickListener(v -> {  showInterstitialWithIntent(new Intent(MainActivity.this, WeldingActivity.class)); });
         findViewById(R.id.btnCables).setOnClickListener(v -> {  showInterstitialWithIntent(new Intent(MainActivity.this, CablesActivity.class)); });
         findViewById(R.id.btnTariff).setOnClickListener(v -> {  showInterstitialWithIntent(new Intent(MainActivity.this, TariffActivity.class)); });
+        findViewById(R.id.btnSubInvoice).setOnClickListener(v -> {  showInterstitialWithIntent(new Intent(MainActivity.this, SubInvoiceActivity.class)); });
     }
 
     private void setupSecretTrick() {
