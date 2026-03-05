@@ -8,6 +8,7 @@
     <string name="title_activity_welding">Soldadura</string>
     <string name="title_activity_cables">Cables Eléctricos</string>
     <string name="title_activity_tariff">Tarifas Eléctricas</string>
+    <string name="title_activity_sub_invoice">Sub-Facturas</string>
     <string name="menu_about">Acerca de</string>
     <string name="about_description">NeoPunto es una empresa de desarrollo Android y sitios web. Para cotizaciones, ingrese a NeoPunto.com o escríbanos al WhatsApp +502 56434857 (línea de Guatemala).\n\nUna aplicación moderna con Material You.\n\nDesarrollado con ❤️.</string>
 
@@ -24,6 +25,48 @@
     <string name="subtitle_welding">Cálculos de soldadura</string>
     <string name="subtitle_cables">Calibres de cable</string>
     <string name="subtitle_tariff">Tarifas y ahorro</string>
+    <string name="subtitle_sub_invoice">Crea facturas para tus inquilinos</string>
+
+    <!-- SubInvoice -->
+    <string name="sub_invoice_currency">Moneda</string>
+    <string name="sub_invoice_total_amount">Monto de Factura Original</string>
+    <string name="sub_invoice_total_amount_hint">Ej: 100.00</string>
+    <string name="sub_invoice_total_kwh">kWh Original (Opcional)</string>
+    <string name="sub_invoice_total_kwh_hint">Ej: 250</string>
+    <string name="sub_invoice_num_tenants">Habitaciones / Inquilinos</string>
+    <string name="sub_invoice_num_tenants_hint">Ej: 3</string>
+    <string name="sub_invoice_due_date">Fecha Límite Sugerida (Opcional)</string>
+    <string name="sub_invoice_due_date_hint">Ej: 15/04/2024</string>
+    <string name="sub_invoice_address">Dirección Completa (Opcional)</string>
+    <string name="sub_invoice_address_hint">Se guardará para futuras facturas</string>
+    <string name="sub_invoice_notes">Texto Breve (Evitar contracargos)</string>
+    <string name="sub_invoice_notes_hint">Ej: Consumo correspondiente al mes...</string>
+    <string name="sub_invoice_create">Crear Facturas</string>
+
+    <string name="sub_invoice_tenant">Inquilino</string>
+    <string name="sub_invoice_percent">%</string>
+    <string name="sub_invoice_btn_create_tenant">Crear Factura</string>
+
+    <string name="sub_invoice_dialog_title">Detalles de Factura</string>
+    <string name="sub_invoice_dialog_name">Nombre / Consumidor Final</string>
+    <string name="sub_invoice_dialog_name_hint">Consumidor Final</string>
+    <string name="sub_invoice_dialog_tax">Impuesto (Monto o %)</string>
+    <string name="sub_invoice_dialog_interest">Intereses</string>
+    <string name="sub_invoice_dialog_btn_pdf">Guardar PDF</string>
+    <string name="sub_invoice_dialog_btn_jpg">Guardar Foto JPG</string>
+    <string name="sub_invoice_dialog_btn_whatsapp">Compartir Whatsapp</string>
+
+    <string name="invoice_title">FACTURA DE LUZ</string>
+    <string name="invoice_app_name">SOLARIS</string>
+    <string name="invoice_date">Fecha:</string>
+    <string name="invoice_due_date">Vencimiento:</string>
+    <string name="invoice_client">Cliente:</string>
+    <string name="invoice_address">Dirección:</string>
+    <string name="invoice_kwh">Consumo (kWh):</string>
+    <string name="invoice_subtotal">Subtotal:</string>
+    <string name="invoice_tax">Impuesto:</string>
+    <string name="invoice_interest">Intereses:</string>
+    <string name="invoice_total">Total a Pagar:</string>
 
     <!-- Options Dialog -->
     <string name="options_title">Opciones</string>
