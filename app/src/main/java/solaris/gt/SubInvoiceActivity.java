@@ -31,6 +31,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.slider.Slider;
 
 import java.io.File;
@@ -103,6 +106,27 @@ public class SubInvoiceActivity extends AppCompatActivity {
         loadPreferences();
 
         btnGenerateSliders.setOnClickListener(v -> generateTenants());
+
+        etDueDate.setOnClickListener(v -> showDatePicker());
+    }
+
+    private void showDatePicker() {
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+        constraintsBuilder.setValidator(DateValidatorPointForward.now());
+
+        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText(getString(R.string.sub_invoice_due_date))
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .setCalendarConstraints(constraintsBuilder.build())
+                .build();
+
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            sdf.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+            etDueDate.setText(sdf.format(new Date(selection)));
+        });
+
+        datePicker.show(getSupportFragmentManager(), "DUE_DATE_PICKER");
     }
 
     private void setupSpinners() {
@@ -141,7 +165,7 @@ public class SubInvoiceActivity extends AppCompatActivity {
         String kwhStr = etTotalKwh.getText().toString();
 
         if (amountStr.isEmpty() || tenantsStr.isEmpty()) {
-            Toast.makeText(this, "Debe ingresar el monto total y la cantidad de inquilinos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.sub_invoice_toast_enter_amount_tenants), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -151,7 +175,7 @@ public class SubInvoiceActivity extends AppCompatActivity {
             totalKwh = kwhStr.isEmpty() ? 0 : Double.parseDouble(kwhStr);
 
             if (numTenants <= 0) {
-                Toast.makeText(this, "Debe haber al menos 1 inquilino", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.sub_invoice_toast_min_one_tenant), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -176,7 +200,7 @@ public class SubInvoiceActivity extends AppCompatActivity {
                 tenant.view = tenantView;
 
                 TextView tvName = tenantView.findViewById(R.id.tvTenantNameLabel);
-                tvName.setText("Inquilino / Habitación " + (i + 1));
+                tvName.setText(getString(R.string.sub_invoice_tenant_room) + " " + (i + 1));
 
                 Slider slider = tenantView.findViewById(R.id.sliderTenant);
                 slider.setValue((float) basePercentage);
@@ -196,7 +220,7 @@ public class SubInvoiceActivity extends AppCompatActivity {
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, "Error en los datos ingresados", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.sub_invoice_toast_error_data), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -318,24 +342,22 @@ public class SubInvoiceActivity extends AppCompatActivity {
 
     private void generateInvoice(TenantData tenant, String name, String taxStr, String interestStr, String action) {
         if (name == null || name.trim().isEmpty()) {
-            name = "Consumidor Final";
+            name = getString(R.string.sub_invoice_dialog_name_hint);
         }
 
         double tax = 0.0;
         if (!taxStr.trim().isEmpty()) {
             try {
-                if (taxStr.contains("%")) {
-                    double percentage = Double.parseDouble(taxStr.replace("%", "").trim());
-                    tax = tenant.currentAmount * (percentage / 100.0);
-                } else {
-                    tax = Double.parseDouble(taxStr.trim());
-                }
+                tax = Double.parseDouble(taxStr.trim());
             } catch (NumberFormatException ignored) {}
         }
 
         double interest = 0.0;
         if (!interestStr.trim().isEmpty()) {
-            try { interest = Double.parseDouble(interestStr); } catch (NumberFormatException ignored) {}
+            try {
+                double interestPercentage = Double.parseDouble(interestStr.replace("%", "").trim());
+                interest = tenant.currentAmount * (interestPercentage / 100.0);
+            } catch (NumberFormatException ignored) {}
         }
 
         View invoiceView = LayoutInflater.from(this).inflate(R.layout.layout_invoice_receipt, null);
@@ -357,17 +379,17 @@ public class SubInvoiceActivity extends AppCompatActivity {
         tvInvDate.setText(sdf.format(new Date()));
 
         String dueDate = etDueDate.getText().toString();
-        tvInvDueDate.setText(dueDate.isEmpty() ? "N/A" : dueDate);
+        tvInvDueDate.setText(dueDate.isEmpty() ? getString(R.string.sub_invoice_na) : dueDate);
 
         tvInvClientName.setText(name);
 
         String address = etAddress.getText().toString();
-        tvInvAddress.setText(address.isEmpty() ? "N/A" : address);
+        tvInvAddress.setText(address.isEmpty() ? getString(R.string.sub_invoice_na) : address);
 
         if (tenant.currentKwh > 0) {
             tvInvKwh.setText(String.format(Locale.getDefault(), "%.1f", tenant.currentKwh));
         } else {
-            tvInvKwh.setText("N/A");
+            tvInvKwh.setText(getString(R.string.sub_invoice_na));
         }
 
         tvInvSubtotal.setText(String.format(Locale.getDefault(), "%s%.2f", currencySymbol, tenant.currentAmount));
@@ -440,10 +462,10 @@ public class SubInvoiceActivity extends AppCompatActivity {
                 try {
                     startActivity(intent);
                 } catch (Exception e) {
-                    Toast.makeText(this, "WhatsApp no está instalado.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.sub_invoice_toast_whatsapp_not_installed), Toast.LENGTH_SHORT).show();
                     // Fallback to normal share
                     intent.setPackage(null);
-                    Intent shareIntent = Intent.createChooser(intent, "Compartir factura");
+                    Intent shareIntent = Intent.createChooser(intent, getString(R.string.sub_invoice_share_intent_title));
                     startActivity(shareIntent);
                 }
             } else {
@@ -457,14 +479,14 @@ public class SubInvoiceActivity extends AppCompatActivity {
                 if (uri != null) {
                     try (OutputStream out = getContentResolver().openOutputStream(uri)) {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                        Toast.makeText(this, "Imagen guardada en Galería (Pictures/Solaris).", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.sub_invoice_toast_image_saved), Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(this, "Error creando archivo en galería.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.sub_invoice_toast_image_error), Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Error guardando la imagen", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.sub_invoice_toast_image_save_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -486,17 +508,17 @@ public class SubInvoiceActivity extends AppCompatActivity {
             document.close();
             stream.close();
 
-            Toast.makeText(this, "PDF guardado en caché (Temporal).", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.sub_invoice_toast_pdf_saved), Toast.LENGTH_LONG).show();
 
             // Allow user to view/share it
             Uri uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", pdfFile);
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(uri, "application/pdf");
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(Intent.createChooser(intent, "Abrir PDF"));
+            startActivity(Intent.createChooser(intent, getString(R.string.sub_invoice_open_pdf)));
 
         } catch (Exception e) {
-            Toast.makeText(this, "Error guardando el PDF", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.sub_invoice_toast_pdf_error), Toast.LENGTH_SHORT).show();
         }
     }
 

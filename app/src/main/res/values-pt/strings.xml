@@ -25,6 +25,65 @@
     <string name="subtitle_welding">Cálculos de soldagem</string>
     <string name="subtitle_cables">Tamanhos de cabos</string>
     <string name="subtitle_tariff">Tarifas e economias</string>
+    <string name="subtitle_sub_invoice">Crie faturas para seus inquilinos</string>
+
+    <!-- SubInvoice -->
+    <string name="title_activity_sub_invoice">Sub-Faturas</string>
+    <string name="sub_invoice_currency">Moeda</string>
+    <string name="sub_invoice_total_amount">Valor da Fatura Original</string>
+    <string name="sub_invoice_total_amount_hint">Ex: 100.00</string>
+    <string name="sub_invoice_total_kwh">kWh Original (Opcional)</string>
+    <string name="sub_invoice_total_kwh_hint">Ex: 250</string>
+    <string name="sub_invoice_num_tenants">Quartos / Inquilinos</string>
+    <string name="sub_invoice_num_tenants_hint">Ex: 3</string>
+    <string name="sub_invoice_due_date">Data de Vencimento Sugerida (Opcional)</string>
+    <string name="sub_invoice_due_date_hint">Ex: 15/04/2024</string>
+    <string name="sub_invoice_address">Endereço Completo (Opcional)</string>
+    <string name="sub_invoice_address_hint">Será salvo para faturas futuras</string>
+    <string name="sub_invoice_notes">Texto Breve (Evite estornos)</string>
+    <string name="sub_invoice_notes_hint">Ex: Consumo referente ao mês...</string>
+    <string name="sub_invoice_create">Criar Faturas</string>
+    <string name="sub_invoice_configure_tenants">Configurar Inquilinos</string>
+    <string name="sub_invoice_main_data">Dados Principais</string>
+
+    <string name="sub_invoice_tenant_room">Inquilino / Quarto</string>
+    <string name="sub_invoice_na">N/A</string>
+    <string name="sub_invoice_tenant">Inquilino</string>
+    <string name="sub_invoice_percent">%</string>
+    <string name="sub_invoice_btn_create_tenant">Criar Fatura</string>
+
+    <string name="sub_invoice_dialog_title">Detalhes da Fatura</string>
+    <string name="sub_invoice_dialog_name">Nome / Consumidor Final</string>
+    <string name="sub_invoice_dialog_name_hint">Consumidor Final</string>
+    <string name="sub_invoice_dialog_tax">Imposto Fixo</string>
+    <string name="sub_invoice_dialog_interest">Juros (%)</string>
+    <string name="sub_invoice_dialog_btn_pdf">Salvar PDF</string>
+    <string name="sub_invoice_dialog_btn_jpg">Salvar Foto JPG</string>
+    <string name="sub_invoice_dialog_btn_whatsapp">Compartilhar WhatsApp</string>
+
+    <string name="sub_invoice_toast_enter_amount_tenants">Você deve inserir o valor total e o número de inquilinos</string>
+    <string name="sub_invoice_toast_min_one_tenant">Deve haver pelo menos 1 inquilino</string>
+    <string name="sub_invoice_toast_error_data">Erro nos dados inseridos</string>
+    <string name="sub_invoice_toast_whatsapp_not_installed">WhatsApp não está instalado.</string>
+    <string name="sub_invoice_share_intent_title">Compartilhar fatura</string>
+    <string name="sub_invoice_toast_image_saved">Imagem salva na Galeria (Pictures/Solaris).</string>
+    <string name="sub_invoice_toast_image_error">Erro ao criar arquivo na galeria.</string>
+    <string name="sub_invoice_toast_image_save_error">Erro ao salvar a imagem</string>
+    <string name="sub_invoice_toast_pdf_saved">PDF salvo no cache (Temporário).</string>
+    <string name="sub_invoice_open_pdf">Abrir PDF</string>
+    <string name="sub_invoice_toast_pdf_error">Erro ao salvar o PDF</string>
+
+    <string name="invoice_title">CONTA DE LUZ</string>
+    <string name="invoice_app_name">SOLARIS</string>
+    <string name="invoice_date">Data:</string>
+    <string name="invoice_due_date">Vencimento:</string>
+    <string name="invoice_client">Cliente:</string>
+    <string name="invoice_address">Endereço:</string>
+    <string name="invoice_kwh">Consumo (kWh):</string>
+    <string name="invoice_subtotal">Subtotal:</string>
+    <string name="invoice_tax">Imposto:</string>
+    <string name="invoice_interest">Juros:</string>
+    <string name="invoice_total">Total a Pagar:</string>
 
     <!-- Options Dialog -->
     <string name="options_title">Opções</string>
